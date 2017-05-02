@@ -1,0 +1,87 @@
+<div id="about-page">
+  <div id="ajax-content" class="group">
+
+    <div class="overflow-frame group">
+      <div id="scroll-frame" class="scroll-frame group">
+        <div class="height-set group">
+
+          <div class="fixed-frame group">
+            <div class="close">Close <span>+</span></div>
+            <div class="back group">
+              <div class="marquee mobile-show">{{ pages.about-us.content }}</div>
+              <div class="marquee one mobile-hide">{{ pages.about-us.content }} &nbsp; {{ pages.about-us.content }} &nbsp;</div>
+              <div class="marquee three mobile-hide">{{ pages.about-us.content }} &nbsp; {{ pages.about-us.content }} &nbsp;</div>
+              <div class="marquee five mobile-hide">{{ pages.about-us.content }} &nbsp; {{ pages.about-us.content }} &nbsp;</div>
+            </div>
+            <div class="middle group">
+              <div class="images group">
+                
+                {% if settings.slide_1_video != blank %}
+                  <div class="video active">
+                    <video autoplay muted loop preload="metadata" playsinline>
+                      <source src="{{ settings.slide_1_video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% elsif settings.slide_1_video == blank and settings.slide_1_image != blank %}
+                  <img class="active" src="{{ settings.slide_1_image | img_url: '2048x' }}" />
+                {% endif %}
+
+                {% if settings.slide_2_video != blank %}
+                  <div class="video">
+                    <video autoplay muted loop preload="metadata" playsinline>
+                      <source src="{{ settings.slide_2_video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% elsif settings.slide_2_video == blank and settings.slide_2_image != blank %}
+                  <img class="" src="{{ settings.slide_2_image | img_url: '2048x' }}" />
+                {% endif %}
+
+                {% if settings.slide_3_video != blank %}
+                  <div class="video">
+                    <video autoplay muted loop preload="metadata" playsinline>
+                      <source src="{{ settings.slide_3_video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% elsif settings.slide_3_video == blank and settings.slide_3_image != blank %}
+                  <img class="" src="{{ settings.slide_3_image | img_url: '2048x' }}" />
+                {% endif %}
+
+                {% if settings.slide_4_video != blank %}
+                  <div class="video">
+                    <video autoplay muted loop preload="metadata" playsinline>
+                      <source src="{{ settings.slide_4_video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% elsif settings.slide_4_video == blank and settings.slide_4_image != blank %}
+                  <img class="" src="{{ settings.slide_4_image | img_url: '2048x' }}" />
+                {% endif %}
+
+                {% if settings.slide_5_video != blank %}
+                  <div class="video">
+                    <video autoplay muted loop preload="metadata" playsinline>
+                      <source src="{{ settings.slide_5_video }}" type="video/mp4">
+                    </video>
+                  </div>
+                {% elsif settings.slide_5_video == blank and settings.slide_5_image != blank %}
+                  <img class="" src="{{ settings.slide_5_image | img_url: '2048x' }}" />
+                {% endif %}
+
+              </div>
+            </div>
+            <div class="front mobile-hide group">
+              <div class="marquee two right">{{ pages.about-us.content }} &nbsp; {{ pages.about-us.content }} &nbsp;</div>
+              <div class="marquee four right">{{ pages.about-us.content }} &nbsp; {{ pages.about-us.content }} &nbsp;</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script type="text/javascript">
+  $(window).on('load', function(){
+    setupAbout();
+  });
+  </script>
+</div>

@@ -1,0 +1,135 @@
+<h1 style="display:none"> {{ collection.title | escape }}</h1>
+{% if collection.image %}
+<div class="collection-image" style="background:url({{ collection.image | img_url: 'master' }})">
+</div>
+  {% endif %}
+{% if collection.handle == 'all' %}
+<div class="all-list-nav">
+  <ul>
+    <li><a class="cur-type" href="#" id="all-list" >All</a></li>
+    {% for product_type in collection.all_types %}
+    {% if product_type != '' %}
+    <li><a href="#" id="{{product_type | handle }}">{{product_type}}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+<div class="content_wrapper">
+
+    {% paginate collection.products by settings.coll_num_per_page %}
+  <div class="container">
+      
+        <div class="page-header cf">
+          {% comment %}
+          {% if settings.coll_desc_pos == 'below' %}
+          <h1 class="majortitle">{{ collection.title | escape }}</h1>
+          {% endif %}
+          {% endcomment %}
+          
+          {% comment %}
+            {% if settings.coll_desc_pos == 'above' %}
+                <h1 class="majortitle">{{ collection.title | escape }}</h1>
+            {% endif %}
+          {% endcomment %}  
+          
+            {% comment %} Find out if we have any tags to show, and the categories to use {% endcomment %}
+            {% assign show_normal_filter = false %}
+            {% assign tag_cats = '' %}
+            {% for tag in collection.all_tags %}
+                {% if tag contains 'meta-filter-' %}
+                    {% assign cat_name = tag | remove: 'meta-filter-' | split: '-' | first %}
+                    {% unless tag_cats contains cat_name %}
+                        {% capture tag_cats %}{{ tag_cats }},{{ cat_name }}{% endcapture %}
+                    {% endunless %}
+                {% else %}
+                    {% unless tag contains 'meta-' %}{% assign show_normal_filter = true %}{% endunless %}
+                {% endif %}
+            {% endfor %}
+            
+            {% assign tag_cats_split = tag_cats | split: ',' %}
+            
+            
+            
+        </div><!-- /.page-header -->
+    </div><!-- /.container -->
+
+    <div class="multi-tag-row">
+        <div class="tags nav-row social hidden">
+            <div class="container">{% include 'social-sharing' %}</div>
+        </div>
+      
+        {% assign sorted_all_tags = collection.all_tags | sort %}
+        {% if show_normal_filter %}
+            {% assign current_tags_size = current_tags | size %}
+            {% capture norm_tag_html %}
+            <!-- Tag filter -->
+            <div class="tags nav-row cat-normal hidden">
+                <ul>
+                    {% for tag in sorted_all_tags %}
+                    {% unless tag contains 'meta-' %}
+                        {% if current_tags contains tag %}
+                            <li class="active" data-tag="{{tag | handleize}}">{{ tag | link_to_remove_tag: tag }}</li>
+                        {% else %}
+                            <li data-tag="{{tag | handleize}}">{{ tag | link_to_add_tag: tag }}</li>
+                        {% endif %}
+                    {% endunless %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endcapture %}
+            {% if norm_tag_html contains 'class="active"' %}
+                {% assign norm_tag_html = norm_tag_html | remove: "hidden" %}
+            {% endif %}
+            {{ norm_tag_html }}
+        {% endif %}
+        
+        {% for cat in tag_cats_split %}
+            {% unless forloop.first %}
+            {% capture cat_tags_html %}
+            {% assign cat_tag_prefix = 'meta-filter-' | append: cat | append: '-' %}
+                <!-- Category tag filter -->
+                <div class="tags nav-row cat-{{ cat | handleize }} hidden">
+                    <ul>
+                        {% for tag in sorted_all_tags %}
+                        {% if tag contains cat_tag_prefix %}
+                      		{% assign tag_title = tag | remove: cat_tag_prefix %}
+                            {% if tag_title contains '-' %}
+                            	{% assign tag_title = tag_title | replace_first: '-', ',' | split: ',' | last %}                  
+                            {% endif %}
+                            {% if current_tags contains tag %}
+                                <li class="active" data-tag="{{tag | handleize}}">{{ tag_title | link_to_remove_tag: tag }}</li>
+                            {% else %}
+                                <li data-tag="{{tag | handleize}}">{{ tag_title | link_to_add_tag: tag }}</li>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endcapture %}
+            {% if cat_tags_html contains 'class="active"' %}
+                {% assign cat_tags_html = cat_tags_html | remove: "hidden" %}
+            {% endif %}
+            {{ cat_tags_html }}
+            {% endunless %}
+        {% endfor %}
+    </div><!-- /.multi-tag-row -->
+
+    {% if collection.products.size == 0 %}
+        <div class="container"><h5 class="align-centre">There are no products here.</h5></div>
+    {% else %}
+        {% if settings.coll_in_col %}<div class="container">{% endif %}
+
+        
+        <div class="collection-listing{% if settings.coll_gridstream_mode contains 'stream' %}-stream{% endif %} cf">
+            {% include 'product-list' with collection %}
+        </div>
+        
+  {% if settings.coll_in_col %}</div>{% endif %}
+  {% endif %}
+  {% if paginate.pages > 1 %}
+  	<div class="container pagination-row">{% include 'pagination-control' %}</div>
+  {% endif %}
+  {% endpaginate %}
+
+</div>

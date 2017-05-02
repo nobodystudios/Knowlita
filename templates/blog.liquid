@@ -1,0 +1,39 @@
+{% paginate blog.articles by 10 %}
+<div class="container">
+    <div class="page-header cf">
+        
+        {% assign show_tags = false %}
+        {% for tag in blog.all_tags %}
+        {% unless tag contains 'meta-' %}{% assign show_tags = true %}{% endunless %}
+        {% endfor %}
+        
+       
+    </div>
+</div><!-- /.pagetitle -->
+
+{% if show_tags %}
+{% assign current_tags_size = current_tags | size %}
+<div class="tags nav-row spaced-row {% if current_tags_size == 0 %}hidden{% endif %}">
+    <ul>
+        {% for tag in blog.all_tags %}
+        {% unless tag contains 'meta-' %}
+            {% if current_tags contains tag %}
+                <li class="active">{{ tag | link_to_remove_tag: tag }}</li>
+            {% else %}
+                <li>{{ tag | link_to_tag: tag }}</li>
+            {% endif %}
+        {% endunless %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="article-list">
+    {% for article in blog.articles %}
+        {% include 'article' %}
+    {% endfor %}
+</div>
+
+<div class="container pagination-row">{% include 'pagination-control' %}</div>
+
+{% endpaginate %}

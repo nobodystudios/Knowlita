@@ -1,0 +1,45 @@
+{% if page.title contains 'Contact' or page.title contains 'contact' %}
+  {% if settings.enbl_contact_banner %}
+      <div class="collection-image" style="background:url({{ 'contact-us-banner.jpg' | asset_url }})"></div>
+  {% endif %}
+{% elsif page.title contains 'Privacy' or page.title contains 'privacy' %}
+  {% if settings.enbl_privacy_banner %}
+      <div class="collection-image" style="background:url({{ 'privacy-banner.jpg' | asset_url }})"></div>
+  {% endif %}
+{% elsif page.title contains 'Terms' or page.title contains 'terms' %}
+  {% if settings.enbl_tndc_banner %}
+      <div class="collection-image" style="background:url({{ 'terms-banner.jpg' | asset_url }})"></div>
+  {% endif %}
+{% elsif page.title contains 'Shipping' or page.title contains 'shipping' %}
+	{% if settings.enbl_sndr_banner %}
+		<div class="collection-image" style="background:url({{ 'shipping-banner.jpg' | asset_url }})"></div>
+	{% endif %}
+{% elsif page.title contains 'About' or page.title contains 'about' %}
+	{% if settings.enbl_about_banner %}
+		<div class="collection-image" style="background:url({{ 'about-banner.jpg' | asset_url }})"></div>
+	{% endif %}
+{% else %}
+	{% if settings.enbl_allpage_banner %}
+		<div class="collection-image" style="background:url({{ 'page_hero_image.jpg' | asset_url }})"></div>
+	{% endif %}
+{% endif %}
+<div class="content_wrapper" id="i-page">
+	<div class="container cf">
+	  <div class="">
+	    <!--<h1 class="majortitle" style="text-align:center">{{ page.title }}</h1>-->
+      </div>
+	  <div class="user-content row-spacing {% if settings.lightbox_imgs %}lightboximages{% endif %}">
+	    {{ page.content }}
+	  </div>
+	</div>
+</div>
+<script>
+  /*
+$(document).ready(function(e) {
+  var gethref = $('#i-page .user-content').find('img').first().attr('src');
+  $('#i-page .user-content').find('img').first().hide();
+  if(gethref)
+  $('.header-image').append('<img src="'+gethref+'" />'); 
+});
+*/
+</script>

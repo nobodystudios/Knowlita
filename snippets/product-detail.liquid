@@ -1,0 +1,151 @@
+{% comment %} You can change 'large' to 'grande' for larger gallery images {% endcomment %}
+{% assign gallery_main_image_size = 'large' %}
+<div class="gallery layout-column-half-left {% if product-detail.images.size > 1 %}has-thumbnails{% endif %}">
+  <div class="main-image">
+    {% if product_detail_in_block %}
+    <a href="{{ product_url }}">
+      {% if settings.coll_gridstream_mode contains 'grid' %}
+      <img src="{{ 'blank.gif' | asset_url }}" data-src="{{ product-detail.featured_image | product_img_url: gallery_main_image_size }}" alt="{{ product-detail.featured_image.alt | escape }}"/>
+      {% else %}
+      <img  src="{{ product-detail.featured_image | product_img_url: gallery_main_image_size }}" alt="{{ product-detail.featured_image.alt | escape }}"/>
+      {% endif %}
+    </a>
+    {% else %}
+	<div class="single-img hide-till-tab">
+      <a class="fancy" rel="gallery" href="{{ product.images[0] | product_img_url: 'master' }}" >
+        <img src="{{ product.images[0] | product_img_url: 'master' }}" />
+      </a>
+    </div>
+    
+    <div class="flexslider hide-on-tab" id="flexslider1">
+      <ul class="slides">
+        {% for image in product.images %}
+        <li>
+          <a class="fancy" rel="gallery" href="{{ image | product_img_url: 'master' }}" >
+          	<img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}"/>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <!--<img src="{{ 'plus2.png' | asset_url }}" class="overlay-mianimg" />-->
+  </div>
+
+
+</div>
+<div class="detail layout-column-half-right">
+
+	
+  <div class="center-info-menu">
+    {% if product_detail_in_block %}<h2 class="h1-style title">{% else %}<h1 class="title">{% endif %}
+    {% if product_detail_in_block %}
+    <a href="{{ product_url }}">{{ product-detail.title }}</a>
+    {% else %}
+    {{ product-detail.title }}
+    {% endif %}
+    {% unless product_detail_in_block %}</h1>{% else %}</h2>{% endunless %}
+    <h5 class="p-type" >{{ product-detail.vendor }}</h5>
+
+    {% if settings.prod_show_vendor %}<p>{{ settings.text_vendor }} {{ product-detail.vendor | link_to_vendor }}</p>{% endif %}
+    {% if settings.prod_desc_pos == 'beside' %}
+    <div class="description user-content toggle {% if settings.lightbox_imgs %}lightboximages{% endif %}">{{ product-detail.description }}</div>
+    {% endif %} 
+    <div class="product-form section">
+    {% if product-detail.available %}
+    <form class="form" action="/cart/add" method="post" enctype="multipart/form-data" data-product-id="{{ product-detail.id }}">
+
+      {% comment %}
+      <div class="input-row">
+        <label for="quantity">{{ settings.text_prod_qty }}</label>
+        <input id="quantity" class="select-on-focus" name="quantity" value="1" size="2" />
+      </div>
+      {% endcomment %}
+      <h2 class="h1-style price">
+        {% if product-detail.variants.size == 1 and product-detail.compare_at_price_max > product-detail.price_min %}
+        <span class="was-price">{{ product-detail.compare_at_price_max | money }}</span>
+        {% endif %}
+        {{ product-detail.price | money }} 
+      </h2>
+
+
+      <div class="input-row mrg-btm">
+        {% if product-detail.variants.size > 1 %}
+        {% if product-detail.options.size == 1 and settings.prod_show_single_opt %}
+        <div class="inline-option">
+          <label for="product-select">{{ product-detail.options.first }}</label>
+          {% endif %}
+
+          <select id="product-select-{{ product-detail.id }}" name="id">
+            {% for variant in product-detail.variants %}
+            <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+            {% endfor %}
+          </select>
+          <div class="input-drop">
+            <select name="quantity" id="quantity" class="qty-box" >
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          {% if product-detail.options.size == 1 and settings.prod_show_single_opt %}
+        </div>
+        {% endif %}
+        {% else %}
+        <input type="hidden" name="id" value="{{ product-detail.variants.first.id }}" />
+        {% if settings.prod_show_single_var_name %}
+        <label class="singleopt">{{ product-detail.options.first }}: {{ product-detail.variants.first.title }}</label>
+        {% endif %}
+        {% endif %}
+
+
+        <input type="submit" value="{{ settings.text_add_to }}" />
+      </div>
+    </form>
+    {% else %}
+    <h2 class="h1-style price">
+      {% if product-detail.variants.size == 1 and product-detail.compare_at_price_max > product-detail.price_min %}
+      <span class="was-price">{{ product-detail.compare_at_price_max | money }}</span>
+      {% endif %}
+      {{ product-detail.price | money }} 
+    </h2>
+
+    <div class="sm-btn">
+      {% if product.tags contains 'Saks Exclusive' %}
+      <a target="_blank" href="{{ product.metafields.saks.url }}">BUY AT SAKS</a>
+      {% else %}
+      {% if product.tags contains 'soldout' %}
+      <a>Sold out</a>
+      {% else %}
+      <a>Coming soon</a>
+      {% endif %}
+      <a href="#waitinglist" class="fancyboxs">waiting list</a>
+      {% include 'product-waiting-form' %}      
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+    
+  </div>
+
+  <div class="social_share">
+    <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url }}{{ product.url }}" class="share-facebook" title="Share on Facebook"></a>
+    <a target="_blank" href="//twitter.com/share?url={{ shop.url }}{{ product.url }}&amp;text={{ product.title }}" class="share-twitter" title="Share on Twitter"></a>
+    <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&amp;media=http:{{ product.featured_image | product_img_url: '1024x1024' }}&amp;description={{ product.title }}" class="share-pinterest" title="Share image on  Pinit"></a>
+    <a class="share-email" href="mailto:?subject=I like this product&amp;body=Check out {{ product.title }} here {{ shop.url }}{{ product.url }}"   title="Share by Email"></a>
+  </div>
+
+</div>
+
+{% if template contains 'product' and settings.prod_desc_pos == 'below' and product_detail_in_block == false %}
+    <div class="description user-content toggle {% if settings.lightbox_imgs %}lightboximages{% endif %} padded-row">{{ product-detail.description }}</div>
+{% endif %}
+
+{% unless is_tag_related_product %}
+<script>
+  addProductJSON({{ product-detail | json }});
+</script>
+{% endunless %}

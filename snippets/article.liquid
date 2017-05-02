@@ -1,0 +1,63 @@
+{% assign style_class = '' %}
+{% for tag in article.tags %}
+{% if tag contains 'meta-style-' %}
+{% capture style_class %}{{ tag | remove: 'meta-' }}{% endcapture %}
+{% endif %}
+{% endfor %}
+<div class="article {{ style_class }} {% if settings.lightbox_imgs %}lightboximages{% endif %}">
+  <div class="container">
+    {% if template contains 'article' %}
+    <div class="header-of-article">
+      <h1 class="h2-style">{{ article.title }}</h1>
+      <div class="social_share in-article">
+        <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url }}{{ article.url }}" class="share-facebook" title="Share on Facebook"></a>
+        <a target="_blank" href="//twitter.com/share?url={{ shop.url }}{{ article.url }}&amp;text={{ article.title }}" class="share-twitter" title="Share on Twitter"></a>
+        <!-- <a target="_blank" data-pin-do="buttonBookmark" class="share-pinterest" title="Share image on  Pinit"></a> -->
+        <a class="share-email" href="mailto:?subject=I like this product&amp;body=Check out {{ article.title }} here {{ shop.url }}{{ article.url }}"   title="Share by Email"></a>
+
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  
+    {% endif %}
+    
+    
+    {% if template contains 'blog' %}
+	<h2 class="blog-article-link">{{ article.title | link_to: article.url }}</h2>
+    <div class="user-content article-excerpt">
+      {{ article.excerpt }}
+    </div>
+	<div class="user-content full-article">
+      <div>
+        {{ article.content | strip_html | truncatewords: 2, '...' }}
+    	<div class="continue-reading">{{ 'View article &raquo;' | link_to: article.url }}</div>    
+      </div>
+    </div>
+    
+    
+
+    {% else %}
+    
+    <div class="user-content article-excerpt">
+      {{ article.excerpt }}
+
+      <div class="meta article-info">
+        <span class="iconmeta time">
+          {{ article.published_at | date: "%B %d, %Y" }} | 
+          <span class="author">by {{ article.author | escape }}</span>
+        </span>
+
+      </div>
+    </div>
+    <div class="user-content full-article">
+      <div>
+        {{ article.content }}
+      </div>
+    </div>
+    {% endif %}
+
+    <div style="clear:both"></div>
+
+
+  </div><!-- /.container -->
+</div><!-- /.article -->

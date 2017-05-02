@@ -1,0 +1,131 @@
+.sbHolder{
+  background-color: #fff;
+  border: solid 2px #ccc;
+  font-weight: normal;
+  height: 42px;
+  position: relative;
+  width: 100%;
+}
+.sbHolder:focus .sbSelector{
+
+}
+.sbSelector{
+  display: block;
+  height: 42px;
+  left: 0;
+  line-height: 42px;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+  /*text-indent: 15px;*/
+  top: 0;
+  width: 100%;
+  text-align:center;
+  
+  font-size:20px;
+}
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover{
+  color: #000;
+  outline: none;
+  text-decoration: none;
+}
+.sbToggle{
+  background:url(//cdn.shopify.com/s/files/1/0574/6081/t/7/assets/select-but1.png?9503922805524359042) no-repeat left center;
+  display: block;
+  height: 42px;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  background-size:20px 10px;
+}
+.sbHolderDisabled{
+  background-color: #3C3C3C;
+  border: solid 1px #515151;
+}
+.sbHolderDisabled .sbHolder{
+
+}
+.sbHolderDisabled .sbToggle{
+
+}
+.sbOptions{
+  background-color: #fff;
+  border: solid 2px #ccc;
+  list-style: none;
+  left: -2px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  z-index: 1;
+  overflow-y: auto;
+  text-align:left;
+}
+.sbOptions li{
+  padding: 0 7px;
+}
+.sbOptions a{
+  border-bottom: solid 1px #515151;
+  display: block;
+  outline: none;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions li:last-child a{ 
+  border-bottom:none;
+}
+.sbOptions a:link, .sbOptions a:visited{
+  color: #000;
+  text-decoration: none;
+}
+.sbOptions a:hover,
+.sbOptions a:focus,
+.sbOptions a.sbFocus{
+  color: #000;
+}
+.sbOptions li.last a{
+  border-bottom: none;
+}
+.sbOptions .sbDisabled{
+  border-bottom: dotted 1px #515151;
+  color: #999;
+  display: block;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions .sbGroup{
+  border-bottom: dotted 1px #515151;
+  color: #EBB52D;
+  display: block;
+  font-weight: bold;
+  padding: 7px 0 7px 3px;
+}
+.sbOptions .sbSub{
+  padding-left: 17px;
+}
+
+
+.co-box:nth-child(4) .sbHolder{
+  border:solid 1px #545454;
+  height:32px;
+  width:315px;
+  font-family: "Avenir Light";
+  font-size:13px;
+}
+.co-box:nth-child(4) .sbToggle{
+  width:30px;
+  height:30px;
+  background:#000 url(//cdn.shopify.com/s/files/1/0574/6081/t/7/assets/select-but2.png?9503922805524359042) center no-repeat;
+}
+.co-box:nth-child(4) .sbSelector{
+  text-indent:10px;
+  width:273px;
+  height:30px;
+  line-height:30px;
+}
+.co-box:nth-child(4) .sbOptions{
+  width:315px;
+  border:solid 1px #000;
+  left:-1px;
+}

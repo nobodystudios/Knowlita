@@ -1,0 +1,123 @@
+<div class="lookbook">
+  {% if settingd.enbltitilelookbook %}
+  <div class="lookbook-titlle">
+    <h1>{{ settings.lookbookpageheading }}</h1>
+  </div>
+  {% endif %}
+  <div class="flexslider" id="flexslider2">
+    <ul class="slides">
+      {% for i in (1..25) %}
+      {% capture enbl %}lookbookimgenable{{ i }}{% endcapture %}
+      {% capture image %}lookbook_img_{{ i }}.jpg{% endcapture %}
+      {% if settings[enbl] %}
+      <li>
+        <a class="fancy" rel="gallery" href="{{ image | asset_url }}" >
+          <img src="{{ image | asset_url }}" />
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<style>
+  .lookbook {
+    position:relative;
+  }
+  .lookbook-titlle h1 {
+    text-align: center;
+    margin:0 !important;
+  }
+
+  .lookbook-titlle {
+    position: absolute;
+    width: 100%;
+  }
+  .flex-control-nav li a {
+    margin-top: 0;
+    vertical-align: middle;
+  }
+  .flex-control-nav {
+    padding:0;
+    margin:0;    
+  }
+  .flex-control-nav li {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  .flexslider .slides img {
+    max-height:500px;
+    width:inherit;
+  }
+  @media (min-width: 1980px) {
+    .flexslider .slides img {
+      max-height:700px;
+      width:inherit;
+    }    
+  }
+  @media (max-width: 1400px) {
+    .flexslider .slides img {
+      max-height:450px;
+      width:inherit;
+    }    
+  }
+  @media (max-width: 1200px) {
+    .flexslider .slides img {
+      max-height:400px;
+      width:inherit;
+    }    
+  }
+  @media (max-width: 768px) {
+    .lookbook-titlle h1 {
+      font-size: 26px;
+    }
+  }
+  @media (max-width: 480px) {
+    .lookbook-titlle h1 {
+      font-size: 22px;
+    }
+    .flexslider .flex-control-nav {
+      margin: 0 auto;
+      max-width: 142px;
+    }
+  }
+
+</style>
+<script>
+  $(window).load(function(){
+    var conh = $('#content').height()+20;
+    var sh = $('.slides').height();
+    var pt = conh - sh;
+    pt = pt/2;
+    $('#flexslider2').css('padding-top',pt);
+
+    var hh = $('.lookbook-titlle h1').height();
+    var pt4 = pt - hh;
+    pt4 = pt4/2;
+    $('.lookbook-titlle h1').css('padding-top',pt4);
+
+
+    var navh = $('.flex-control-nav').height();
+    var np = pt - navh;
+    np = np/2;
+    $('.flex-control-nav').css('padding-top',np);
+  });
+  $(window).resize(function(){
+    var conh = $('#content').height()+20;
+    var sh = $('.slides').height();
+    var pt = conh - sh;
+    pt = pt/2;
+    $('#flexslider2').css('padding-top',pt);
+
+    var hh = $('.lookbook-titlle h1').height();
+    var pt4 = pt - hh;
+    pt4 = pt4/2;
+    $('.lookbook-titlle h1').css('padding-top',pt4);
+
+
+    var navh = $('.flex-control-nav').height();
+    var np = pt - navh;
+    np = np/2;
+    $('.flex-control-nav').css('padding-top',np);
+  });
+</script>

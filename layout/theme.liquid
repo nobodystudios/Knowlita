@@ -8,23 +8,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    
+
     {% if template == '404' %}
     <title>Page Not Found | {{ shop.name }}</title>
     {% else %}
     <title>{{ page_title }}</title>
     {% endif %}
-    
+
     <meta name="description" content="{{ page_description }}" />
-    
+
     <link rel="canonical" href="{{ canonical_url }}" />
     <link href='https://fonts.googleapis.com/css?family=Belleza' rel='stylesheet' type='text/css'>
-    
+
     {% comment %} upload your own favicon.ico file to the Assets section {% endcomment %}
     <link rel="shortcut icon" type="image/png" href="{{ 'favicon1.png' | asset_url }}">
-    
+
     {% include 'opengraph-tags' %}
-    
+
     {% comment %} Google Fonts {% endcomment %}
     {% for i in (1..5) %}
         {% capture font_setting_index %}{% cycle 'font_group': 'font_fam_base', 'font_fam_headings', 'font_fam_shoptitle', 'font_fam_nav', 'font_fam_special' %}{% endcapture %}
@@ -64,9 +64,9 @@
   {{ 'jquery.selectbox-0.2.js' | asset_url | script_tag }}
 
   {{ 'jquery.mousewheel.js' | asset_url | script_tag }}
- 
+
   {{ 'custom.js' | asset_url | script_tag }}
-  
+
 <script>
 Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 </script>
@@ -80,46 +80,46 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     background: rgba({{ hex2rgb_r }}, {{ hex2rgb_g }}, {{ hex2rgb_b }}, {{ settings.slide_txt_bg_op }});
   }
   {% endif %}
-  
+
   {% if settings.slide_txt_bg_show %}
   {% assign hex2rgb_hex = settings.slide_txt_bg_col %}{% include 'hex2rgb' %}
   .slide.full-width-image .overlay-text .text span {
     background: rgba({{ hex2rgb_r }}, {{ hex2rgb_g }}, {{ hex2rgb_b }}, {{ settings.slide_txt_bg_op }});
   }
   {% endif %}
-  
-  
+
+
   {% comment %} Colors of the dots and text on home page; to change switch the three fff below to 000 (Look here Quincy) {% endcomment %}
-  
-  
-  
+
+
+
     .collection_dots .dot {
         border: solid 2px #000;
     }
-  
+
   /*.collection_dots .dot.active {
     background-color: #000;
   }*/
-  
+
   .collection_preview .headline a:link, .collection_preview .headline a:visited {
     color: #000;
   }
-  
-  
+
+
   {% comment %} Style and link in the bottom of the menu slideout aka long x lat and tagline {% endcomment %}
-  
+
 .main_nav .foot a, .main_nav .foot a:link, .main_nav .foot a:visited, .main_nav .foot span {
-        color: #5f5b5c;  
+        color: #5f5b5c;
     }
  .main_nav .foot a:hover {
-        color: #fff;  
-    } 
+        color: #fff;
+    }
 
     {% comment %} remove logo on all interior pages except home on mobile {% endcomment %}
-    @media all and (max-width:768px) { 
+    @media all and (max-width:768px) {
         /*#pageheader { display:none; }*/
     }
-    @media all and (max-width:768px) { 
+    @media all and (max-width:768px) {
         .template-index #pageheader { display: block; }
     }
 
@@ -127,7 +127,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     @media only screen and (max-width: 767px) {
         .collection-listing .product-block { width:100%; }
     }
-    
+
     {% comment %} gallery main image on top {% endcomment %}
     /*.product-detail .gallery.has-thumbnails .main-image { margin-right: 0; }
     .product-detail .gallery .thumbnails { position: relative; width:100%; }
@@ -136,10 +136,10 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     .product-detail .gallery .thumbnails { position: static; text-align: center; }
     .product-detail .gallery .thumbnails > * { display: inline; }
     .product-detail .gallery .thumbnails img { margin: 0 5px 12px; }
-    
-  
-  
-  
+
+
+
+
   * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -153,7 +153,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  
+
 </style>
 
     {{ content_for_header }}
@@ -192,7 +192,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     }
   }
 </style>
- 
+
 {% endif %}
 <body class="template-{{ template | split: '.' | first }} {% if template != 'index' %}scrolling{% endif %}">
     {% include 'nav' %}
@@ -223,9 +223,9 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
             </div><!-- /#store-messages -->
             {% endif %}
             {% endunless %}
-            
-            
-            
+
+
+
             {% if template == 'index' or template contains 'collection' or template contains 'product' or template contains 'blog' or template contains 'article' or template contains 'page' or template contains 'search' %}
                 {% if template == 'list-collections' %}
                     {% include 'collection-listing' %}
@@ -243,8 +243,8 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 
       </div>
     </div>
-    
-  
+
+
   {% include 'currencies' %}
   {% if social_items_on_page %}
     {% if settings.social_show_tw %}<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>{% endif %}
@@ -275,13 +275,13 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
         .eq(optionIndex)
         .val(optionValue)
         .trigger('change');
-      }); 
-      
+      });
+
       $(".single-option-selector").selectbox();
       $(".qty-box").selectbox();
-      
+
     });
-  
+
   /*  $(document).ready(function(e){
 
       var divs = $("div.poduct-other-img > div");
@@ -294,12 +294,12 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
       $('.poduct-other-img img').each(function(index, element) {
         var ih = $(this).height();
         g.push(ih);
-         
+
       });
       Arrmin = Math.min.apply(Math, g);
       //$('.poduct-other-img .img-list').height(Arrmin);
       }
-      
+
       $(window).resize(function(e) {
         if($(window).width() > 425 ) {
         g = [];
@@ -308,14 +308,14 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
           g.push(ih);
         });
         Arrmin = Math.min.apply(Math, g);
-        //$('.poduct-other-img .img-list').height(Arrmin); 
+        //$('.poduct-other-img .img-list').height(Arrmin);
         }
       });
 
     });*/
-	
+
   </script>
-  
+
   {% if template != 'index' %}
   <style>
     #content {
@@ -326,9 +326,9 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
       background-size:35px;
       background-position: center center;
     }
-     
+
     .main_nav .hamburger {
-      background:url({{'close_icon_white.png' | asset_url}} ) no-repeat; 
+      background:url({{'close_icon_white.png' | asset_url}} ) no-repeat;
       background-size:25px;
       background-position: center center;
       background-color:#000;
@@ -356,17 +356,17 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
         else {
           $('body').removeClass("scrolling");
         }
-        
+
       });
 
       $(window).resize(function(){
-        
+
       });
     });
-    
+
   </script>
   {% endif %}
-  
+
   <script>
     $(window).load(function(e){
       var inpch = $(window).height() - 76;
@@ -377,12 +377,12 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 
       if(l>1)
         inpap = inpap - 68;
-      else 
+      else
         inpap = inpap - 116;
 
       if($(window).width() <= 768 )
         var poi = $('.poduct-other-img').height();
-      else 
+      else
         var poi = 0;
 
 
@@ -419,7 +419,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 
         if(l>1)
           inpap = inpap - 68;
-        else 
+        else
           inpap = inpap - 116;
 
         var poi = 0;
@@ -459,7 +459,7 @@ var google_remarketing_only = false;
 <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/868960676/?label=7jT-CN-J5msQpJOtngM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
-{% include 'sca-quick-view-template' %} 
+{% include 'sca-quick-view-template' %}
  </body>
 </html>
 

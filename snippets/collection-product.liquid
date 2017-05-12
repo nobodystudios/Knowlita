@@ -1,0 +1,19 @@
+<!-- Collection product snippet
+Display one square product
+Need to pass the collection and the id
+All metafields this snippet uses :
+- c_f.secondary_image
+
+-->
+
+<div class="product">
+	{% if product.metafields.c_f.secondary_image != blank %}
+		{% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
+		{% assign sec_image = sec_image_query.first | split: '/' %}
+		<a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
+			<span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
+		</a>
+	{% else %}
+		<a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
+	{% endif %}
+</div>

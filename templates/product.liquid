@@ -1,5 +1,4 @@
 <div class="content_wrapper auto-set-padding">
-
     <div itemscope itemtype="http://schema.org/Product">
       <meta itemprop="name" content="{{ product.title }}" />
       <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
@@ -12,10 +11,10 @@
         <link itemprop="availability" href="http://schema.org/InStock" />
         {% else %}
         <link itemprop="availability" href="http://schema.org/OutOfStock" />
-        {% endif %}  
+        {% endif %}
       </div>
       {% endfor %}
-        
+
         {% capture tag_html %}
         {% if settings.prod_show_tags %}
         {% for tag in product.tags %}
@@ -25,15 +24,15 @@
         {% endfor %}
         {% endif %}
         {% endcapture %}
-        
-      
-        
+
+
+
         {% if tag_html contains 'a' %}
             <div class="tags nav-row spaced-row hidden">
                 <ul>{{ tag_html }}</ul>
             </div>
         {% endif %}
-        
+
         {% comment %}
             GALLERY, TITLE, DESCRIPTION IS ALL IN product-detail.liquid
             It is included here on the product page, and also used in the slide-down feature on the collection page
@@ -42,7 +41,7 @@
             {% assign product_detail_in_block = false %}
             {% include 'product-detail' with product %}
         </div><!-- /.product-detail -->
-      
+
       <div class="poduct-other-img hide-till-tab">
         {% if product.images.size > 1 %}
         {% for image in product.images %}
@@ -63,12 +62,12 @@
         {% endif %}
         <div style="clear:both;"></div>
       </div>
-        
+
         {% assign show_related = false %}
         {% capture related_markup %}
         <div id="related-products" class="cf">
             <h4 class="align-centre">{{ settings.text_rel_title }}</h4>
-          
+
             <div class="collection-listing related-{{ settings.prod_rel_meth }} cf row-spacing">
                 {% if settings.prod_rel_meth == 'collection' %}
                     {% assign product_collection = collection %}
@@ -84,7 +83,7 @@
                     {% assign prod_rel_count = 0 %}
                     {% assign prod_rel_limit_int = settings.prod_rel_limit | plus: 0 %}
                     {% assign prod_rel_limit_plus_one = prod_rel_limit_int | plus: 1 %}
-                    
+
                         {% for relprod in product_collection.products %}
               				{% if relprod.available %}
                             {% if relprod.handle != product.handle and prod_rel_limit_int > prod_rel_count %}
@@ -94,7 +93,7 @@
                             {% endif %}
               				{% endif %}
                         {% endfor %}
-                    
+
                 {% elsif settings.prod_rel_meth == 'tag-coll' %}
               		{% assign c = 0 %}
                     {% for tag in product.tags %}
@@ -165,7 +164,7 @@
 
 
 
- 
+
 <div style="clear:both;"></div>
 <!--
 <script>

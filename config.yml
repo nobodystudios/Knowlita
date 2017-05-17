@@ -2,3 +2,19 @@ development:
   password: 5a3910f15d93953f4b73699ef01ed1c9
   theme_id: "167768391"
   store: nobody-studios-sandbox.myshopify.com
+  ignore_files:
+    - config/settings_data.json
+
+production_pre_prod:
+  password: d679eb8732f63fcb2576a4964c8bf2b7
+  theme_id: "167801417"
+  store: knowlita.myshopify.com
+  ignore_files:
+    - config/settings_data.json
+
+production:
+  password: d679eb8732f63fcb2576a4964c8bf2b7
+  theme_id: "167768391"
+  store: knowlita.myshopify.com
+  ignore_files:
+    - config/settings_data.json

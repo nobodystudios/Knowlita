@@ -9,10 +9,8 @@ function setupAbout(){
     var marqueeL = -marquee;
     var images = $(".images").children();
     var rotatorLength = images.length;
-
     $(".height-set").height((rotatorLength * marqueeSingle) - (marqueeSingle / 2));
     $(".marquee:not(.right)").css("transform", "translateY(-50%) translateX(" + marqueeL + "px)");
-
     scrollFrame.on("scroll", function(){
       var scroll = $(this).scrollTop();
       var limit = $(".height-set").height() - windowHeight;
@@ -20,7 +18,7 @@ function setupAbout(){
 
       // Have fixed frame travel with scroll
       $(".fixed-frame").css("transform", "translateY(" + scroll + "px)");
-      
+
       // Marquee
       marqueeL = marqueeL - scrollDiff;
 
@@ -52,14 +50,18 @@ function setupAbout(){
         $(".marquee:not(.right)").css("transform", "translateY(-50%) translateX(" + marqueeL + "px)");
         $(".marquee.right").css("transform", "translateY(-50%) translateX(" + -marqueeL + "px)");
       }
-
       // Image swap
-      var x = 0;
-      for(i = 0; i < rotatorLength; i++){
-        if(scroll >= (limit / rotatorLength) * i){
-          x = i;
-        }
-      }
+
+      //New image swapping
+      x = Math.trunc((scroll % marquee) / (marquee / rotatorLength ))
+
+      // Old Image swapping
+      // var x = 0;
+      // for(i = 0; i < rotatorLength; i++){
+      //   if(scroll >= ((limit / rotatorLength)) * i){
+      //     x = i;
+      //   }
+      // }
 
       if(!images.eq(x).hasClass("active")){
         images.removeClass("active");
@@ -115,7 +117,7 @@ $(document).ready(function(e){
   });
 
   $('.hamburger.close').click(function(){
-    
+
     $('.main_nav').animate({ width: '0' } , 500);
     $('body').css('overflow','auto');
     $('body').css('position','relative');
@@ -124,7 +126,7 @@ $(document).ready(function(e){
     $('body').css('right','inherit');
   });
   $('.main_nav').click(function(){
-    
+
     $('.main_nav').animate({ width: '0' } , 500);
     $('body').css('overflow','auto');
     $('body').css('position','relative');
@@ -133,8 +135,8 @@ $(document).ready(function(e){
     $('body').css('right','inherit');
   });
 
-  
- 
+
+
 
   /*$(".collection_dots .dot.active").prevAll().addClass('up-arw');
   $(".collection_dots .dot.active").nextAll().addClass('dn-arw');
@@ -154,14 +156,14 @@ $(document).ready(function(e){
       $('#pagefooter').slideUp();
     }
   });*/
-  
+
 
   $('.flexslider').each(function(){
     $(this).flexslider({
       animation: 'slide',
       // slideshow: $(this).hasClass('auto-play'),
-      controlNav: true,  
-      directionNav: false,  
+      controlNav: true,
+      directionNav: false,
       slideshowSpeed: 7000 // Milliseconds to wait between slides
     });
   });
@@ -175,7 +177,7 @@ $(document).ready(function(e){
   $('.empty-cart').css('margin-top',(minh-75)/2);
 
   $('.collection-image').height(wh/2);
-  
+
 
   $('.all-list-nav li a').click(function(e) {
     $('.all-list-nav li a').removeClass('cur-type');
@@ -202,7 +204,7 @@ $(document).ready(function(e){
       $('.toggle p').next('div').slideUp();
       $(this).next('div').slideDown();
       $(this).addClass('ct');
-    }	
+    }
   });
   */
 
@@ -222,12 +224,12 @@ $(document).ready(function(e){
 
   $('#tabs').prepend('<li class="tab-controll left-open-close">&or;</li>');
   $('#tabs').append('<li class="tab-controll right-open-close">&or;</li>');
-  
+
   $('#tabs li:not(.tab-controll)').click(function(e) {
-    
+
     var wd = $('ul#tabs').width();
     $('ul#tabs-con').width(wd);
-    
+
     $('#tabs li').not(this).removeClass('live-tab');
     $('#tabs-con li').slideUp();
     var tabid = $(this).attr('id');
@@ -254,7 +256,7 @@ $(document).ready(function(e){
       $('.tab-controll').html('&or;');
     }
   });
-  
+
   $('.tab-controll').click(function(e) {
     $('#tabs-parent').removeClass('addclose');
     $('ul#tabs').removeClass('addclose');
@@ -263,9 +265,9 @@ $(document).ready(function(e){
     $('#tabs li').removeClass('live-tab');
     $('#tabs-con li').slideUp();
   });
- 
+
   /* --- THIS ABOVE IS THE PRODUCT DESCRIPTION SPLITTER --- */
-  
+
 
   //$('.toggle p').first().trigger('click');
 
@@ -302,16 +304,16 @@ $(document).ready(function(e){
   	if(typeof interval != 'undefined'){ clearInterval(interval); }
     timer();
   });*/
-  
- 
+
+
 	$('.fancy').fancybox();
-  
+
   if($(window).width() <= 767) {
     var vv = $(window).width();
     var c = 0;
     $('.content-li').each(function(){
       c = c + parseInt($(this).outerWidth());
-      
+
     });
     var gap = vv - c;
     gap = gap / 4;
@@ -328,7 +330,7 @@ $(window).resize(function() {
   $('.empty-cart').css('margin-top',(minh1-75)/2);
 
   $('.collection-image').height(wh1/2);
-  
+
   if($(window).width() <= 767) {
     var vv = $(window).width();
     var cr = 0;
@@ -342,5 +344,3 @@ $(window).resize(function() {
 
   }
 });
-
-

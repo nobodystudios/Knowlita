@@ -470,22 +470,29 @@
     {% assign collec_query = collection.metafields.c_f.collection_mobile_image | split: '?' %}
     {{collec_query}}
     {% assign collec_array = collec_query.first | split: '/' %}
-    <div class="product feature fullscreen">
-      {% if collection.metafields.c_f.media_video_mp4 != blank %}
-        <video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
-          <source src="{{ collection.metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-            {% if collection.metafields.c_f.media_video_webm != blank %}
-              <source src="{{ collection.metafields.c_f.media_video_webm }}" type="video/webm" />
-            {% endif %}
-          <img src="" data-image="{{ collection.image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}" />
-        </video>
-      {% else %}
-        <div class="image" data-image="{{ collection.image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
-      {% endif %}
-      <div class="content group">
-        {{ collection.description }}
-      </div>
+    <div class="{{collection.image}}">
+
     </div>
+    {% if collection.image != blank or collection.metafields.c_f.media_video_mp4 != blank %}
+      <div class="product feature fullscreen">
+        {% if collection.metafields.c_f.media_video_mp4 != blank %}
+          <video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
+            <source src="{{ collection.metafields.c_f.media_video_mp4 }}" type="video/mp4" />
+              {% if collection.metafields.c_f.media_video_webm != blank %}
+                <source src="{{ collection.metafields.c_f.media_video_webm }}" type="video/webm" />
+              {% endif %}
+            <img src="" data-image="{{ collection.image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}" />
+          </video>
+        {% else %}
+          {% if collection.image != blank %}
+            <div class="image" data-image="{{ collection.image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
+          {% endif %}
+        {% endif %}
+        <div class="content group">
+          {{ collection.description }}
+        </div>
+    </div>
+    {% endif %}
 
     <!-- {% assign promo_index = collection.metafields.c_f.promo_position | times: 1 %} -->
     {% for product in collection.products %}

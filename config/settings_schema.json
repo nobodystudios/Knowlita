@@ -3307,5 +3307,74 @@
         "max-height": 1080
       }
     ]
+  },
+  {
+    "name": "New Homepage",
+    "settings": [
+      {
+        "type": "header",
+        "content": "First section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section1"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text1"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection1"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox1"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image1.jpg",
+        "label": "Set main image",
+        "max-height": 1080
+      },
+      {
+        "type": "header",
+        "content": "Second section"
+      },
+      {
+        "type": "header",
+        "content": "Second section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section2"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text2"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection2"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox2"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image2.jpg",
+        "label": "Set main image",
+        "max-height": 1080
+      }
+    ]
   }
 ]

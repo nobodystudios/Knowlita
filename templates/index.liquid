@@ -481,470 +481,68 @@
   <div class="disable-hover" style="position: fixed;z-index: 590;width: 16%;left: 42%;top: 0;height: 100%;"></div>
   <div class="disable-hover" style="position: fixed;z-index: 590;width: 8%;right: 0%;top: 0;height: 100%;"></div>
   <div class="collection-grid group">
+    <style>
+    .shop-nav {
+      display: none;
+      position: absolute;
+      font-size: 20px;
+      color: red;
+      z-index: 9;
+      width: 50%;
+      text-align: center;
+      padding: 0;
+      height: auto;
+      background-color: white;
+      list-style-type: none;
+      margin: 0;
+      overflow-y: scroll;
+      height: 100vh;
+    }
+    .shop-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .shop-nav li {
+      text-align: center;
+      min-height: 300px;
+      /*display: inline-block;*/
+      display: table;
+      float: left;
+      height: 25%;
+      list-style-type: none;
+      width: 50%;
+      background-size: cover;
+    }
+    .shop-nav .full-width {
+      width: 100%!important;
+    }
+    .shop-nav-title {
+      display: table-cell;
+      vertical-align: middle;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 1.6px;
+      text-align: center;
+      color: #ffffff;
+    }
+    </style>
 
-    {% comment %}
-      Collection 1
-    {% endcomment %}
+    <ul class="shop-nav">
+      {% for link in linklists.naviguation.links %}
+        <a href="{{link.url}}">
+          <li {% if link.object.metafields.naviguation.full == 'true' %}class="full-width"{% endif %} style="background-image: url('{{link.object.metafields.naviguation.shopimage}}')">
+            <div class="shop-nav-title">
+              {{link.title}}
+            </div>
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
 
 
-    {% assign col_1 = settings.hp_collection_1 %}
+    {% for j in (1..10) %}
+      {% include 'homepage-section' with id: j %}
+    {% endfor %}
 
-    {% if col_1 != '' %}
-      <div class="collection-wrapper group">
-        {% assign collec_query = collections[col_1].metafields.c_f.collection_mobile_image | split: '?' %}
-        {% assign collec_array = collec_query.first | split: '/' %}
-        <div class="product feature fullscreen">
-          {% if collections[col_1].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_1].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_1].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_1].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_1].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_1].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_1].description }}
-          </div>
-          <div class="scroll-to-shop">
-            <p>Scroll to shop</p>
-            <div class="line"></div>
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_1].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_1].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_1].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_1].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_1].metafields.c_f.promo_image != blank and collections[col_1].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_1].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_1].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_1].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_1].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_1].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_1].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_1].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_1].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_1].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_1].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_1].metafields.c_f.promo_color_text }};">{{ collections[col_1].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_1].metafields.c_f.promo_color_text }};">{{ collections[col_1].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
-
-    {% comment %}
-      Collection 2
-    {% endcomment %}
-
-    {% assign col_2 = settings.hp_collection_2 %}
-    {% if col_2 != '' %}
-      <div class="collection-wrapper group">
-        <div class="product feature">
-          {% if collections[col_2].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-2" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_2].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_2].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_2].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_2].image | img_url: '2048x' }}" data-image-m="{{ collections[col_2].image | img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_2].image | img_url: '2048x' }}" data-image-m="{{ collections[col_2].image | img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_2].description }}
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_2].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_2].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_2].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_2].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_2].metafields.c_f.promo_image != blank and collections[col_2].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_2].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_2].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_2].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_2].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_2].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_2].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_2].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_2].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_2].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_2].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_2].metafields.c_f.promo_color_text }};">{{ collections[col_2].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_2].metafields.c_f.promo_color_text }};">{{ collections[col_2].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
-
-    {% comment %}
-      Collection 3
-    {% endcomment %}
-
-    {% assign col_3 = settings.hp_collection_3 %}
-    {% if col_3 != '' %}
-      <div class="collection-wrapper group">
-        <div class="product feature">
-          {% if collections[col_3].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-3" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_3].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_3].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_3].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_3].image | img_url: '2048x' }}" data-image-m="{{ collections[col_3].image | img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_3].image | img_url: '2048x' }}" data-image-m="{{ collections[col_3].image | img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_3].description }}
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_3].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_3].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_3].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_3].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_3].metafields.c_f.promo_image != blank and collections[col_3].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_3].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_3].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_3].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_3].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_3].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_3].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_3].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_3].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_3].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_3].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_3].metafields.c_f.promo_color_text }};">{{ collections[col_3].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_3].metafields.c_f.promo_color_text }};">{{ collections[col_3].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
-
-    {% comment %}
-      Collection 4
-    {% endcomment %}
-
-    {% assign col_4 = settings.hp_collection_4 %}
-    {% if col_4 != '' %}
-      <div class="collection-wrapper group">
-        <div class="product feature">
-          {% if collections[col_4].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-4" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_4].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_4].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_4].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_4].image | img_url: '2048x' }}" data-image-m="{{ collections[col_4].image | img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_4].image | img_url: '2048x' }}" data-image-m="{{ collections[col_4].image | img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_4].description }}
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_4].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_4].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_4].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_4].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_4].metafields.c_f.promo_image != blank and collections[col_4].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_4].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_4].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_4].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_4].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_4].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_4].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_4].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_4].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_4].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_4].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_4].metafields.c_f.promo_color_text }};">{{ collections[col_4].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_4].metafields.c_f.promo_color_text }};">{{ collections[col_4].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
-
-    {% comment %}
-      Collection 5
-    {% endcomment %}
-
-    {% assign col_5 = settings.hp_collection_5 %}
-    {% if col_5 != '' %}
-      <div class="collection-wrapper group">
-        <div class="product feature">
-          {% if collections[col_5].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-5" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_5].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_5].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_5].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_5].image | img_url: '2048x' }}" data-image-m="{{ collections[col_5].image | img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_5].image | img_url: '2048x' }}" data-image-m="{{ collections[col_5].image | img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_5].description }}
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_5].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_5].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_5].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_5].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_5].metafields.c_f.promo_image != blank and collections[col_5].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_5].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_5].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_5].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_5].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_5].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_5].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_5].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_5].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_5].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_5].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_5].metafields.c_f.promo_color_text }};">{{ collections[col_5].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_5].metafields.c_f.promo_color_text }};">{{ collections[col_5].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
-
-    {% comment %}
-      Collection 6
-    {% endcomment %}
-
-    {% assign col_6 = settings.hp_collection_6 %}
-    {% if col_6 != '' %}
-      <div class="collection-wrapper group">
-        <div class="product feature">
-          {% if collections[col_6].metafields.c_f.media_video_mp4 != blank %}
-            <video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
-              <source src="{{ collections[col_6].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-                {% if collections[col_6].metafields.c_f.media_video_webm != blank %}
-                  <source src="{{ collections[col_6].metafields.c_f.media_video_webm }}" type="video/webm" />
-                {% endif %}
-              <img src="" data-image="{{ collections[col_6].image | img_url: '2048x' }}" data-image-m="{{ collections[col_6].image | img_url: '1024x' }}" />
-            </video>
-          {% else %}
-            <div class="image" data-image="{{ collections[col_6].image | img_url: '2048x' }}" data-image-m="{{ collections[col_6].image | img_url: '1024x' }}"></div>
-          {% endif %}
-          <div class="content group">
-            {{ collections[col_6].description }}
-          </div>
-        </div>
-
-        {% assign promo_index = collections[col_6].metafields.c_f.promo_position | times: 1 %}
-        {% for product in collections[col_6].products limit:14 %}
-          {% if forloop.index == promo_index %}
-            {% assign promo_link = collections[col_6].metafields.c_f.promo_link %}
-            <a class="product promo group" style="background-color:#{{ collections[col_6].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
-              {% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-              {% if collections[col_6].metafields.c_f.promo_image != blank and collections[col_6].metafields.c_f.promo_media_video_mp4 == blank %}
-                {% assign split_query = collections[col_6].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                {% if collections[col_6].metafields.c_f.promo_image_mobile != blank %}
-                  {% assign split_query_mobile = collections[col_6].metafields.c_f.promo_image_mobile | split: '?' %}
-                  {% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
-                {% endif %}
-                <div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collections[col_6].metafields.c_f.promo_image_mobile != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
-              {% endif %}
-              {% if collections[col_6].metafields.c_f.promo_media_video_mp4 != blank %}
-                {% assign split_query = collections[col_6].metafields.c_f.promo_image | split: '?' %}
-                {% assign promo_array = split_query.first | split: '/' %}
-                <video class="video" autoplay muted loop preload="metadata" playsinline>
-                  <source src="{{ collections[col_6].metafields.c_f.promo_media_video_mp4 }}" type="video/mp4" />
-                    {% if collections[col_6].metafields.c_f.promo_media_video_webm != blank %}
-                      <source src="{{ collections[col_6].metafields.c_f.promo_media_video_webm }}" type="video/webm" />
-                    {% endif %}
-                  <img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
-                </video>
-              {% endif %}
-              <div class="content {% if collections[col_6].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-                <h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[col_6].metafields.c_f.promo_color_text }};">{{ collections[col_6].metafields.c_f.promo_description | newline_to_br }}</h2>
-                <div class="outer">
-                  <div class="middle">
-                    <p class="vertical" style="color:#{{ collections[col_6].metafields.c_f.promo_color_text }};">{{ collections[col_6].metafields.c_f.promo_description_vertical }}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endif %}
-          <div class="product">
-            {% if product.metafields.c_f.secondary_image != blank %}
-              {% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-              {% assign sec_image = sec_image_query.first | split: '/' %}
-              <a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-                <span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-              </a>
-            {% else %}
-              <a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-      </div>
-    {%  endif %}
 
   </div>
   <script type="text/javascript">

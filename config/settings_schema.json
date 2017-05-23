@@ -3321,14 +3321,14 @@
         "id": "homepage_section1"
       },
       {
-        "type": "text",
-        "label": "Heading text",
-        "id": "homepage_main_text1"
-      },
-      {
         "type": "collection",
         "label": "Pick the collection to display",
         "id": "homepage_collection1"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text1"
       },
       {
         "type": "checkbox",
@@ -3338,12 +3338,12 @@
       {
         "type": "image",
         "id": "homepage_main_image1.jpg",
-        "label": "Set main image",
-        "max-height": 1080
+        "label": "Set main image"
       },
       {
-        "type": "header",
-        "content": "Second section"
+        "type": "text",
+        "id": "homepage_productlimit1",
+        "label": "Number of product that has to be displayed"
       },
       {
         "type": "header",
@@ -3355,14 +3355,14 @@
         "id": "homepage_section2"
       },
       {
-        "type": "text",
-        "label": "Heading text",
-        "id": "homepage_main_text2"
-      },
-      {
         "type": "collection",
         "label": "Pick the collection to display",
         "id": "homepage_collection2"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text2"
       },
       {
         "type": "checkbox",
@@ -3372,8 +3372,284 @@
       {
         "type": "image",
         "id": "homepage_main_image2.jpg",
-        "label": "Set main image",
-        "max-height": 1080
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit2",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Third section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section3"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection3"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text3"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox3"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image3.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit3",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Fourth section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section4"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection4"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text4"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox4"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image4.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit4",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Fith section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section5"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection5"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text5"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox5"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image5.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit5",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Sixth section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section6"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection6"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text6"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox6"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image6.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit6",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Seventh section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section7"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection7"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text7"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox7"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image7.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit7",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Eighth section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section8"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection8"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text8"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox8"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image8.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit8",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Ninth section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section9"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection9"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text9"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox9"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image9.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit9",
+        "label": "Number of product that has to be displayed"
+      },
+      {
+        "type": "header",
+        "content": "Tenth section"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable Title",
+        "id": "homepage_section10"
+      },
+      {
+        "type": "collection",
+        "label": "Pick the collection to display",
+        "id": "homepage_collection10"
+      },
+      {
+        "type": "text",
+        "label": "Heading text",
+        "id": "homepage_main_text10"
+      },
+      {
+        "type": "checkbox",
+        "label": "Take the collection image ?",
+        "id": "homepage_main_image_checkbox10"
+      },
+      {
+        "type": "image",
+        "id": "homepage_main_image10.jpg",
+        "label": "Set main image"
+      },
+      {
+        "type": "text",
+        "id": "homepage_productlimit10",
+        "label": "Number of product that has to be displayed"
       }
     ]
   }

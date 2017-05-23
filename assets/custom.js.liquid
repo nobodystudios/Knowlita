@@ -76,9 +76,15 @@ function setupAbout(){
 
 
 $(document).ready(function(e){
+  $(".navigation").on("click", ".shop", function(event){
+    event.preventDefault();
+    $('.shop-nav').fadeToggle()
+  });
+
 
   // About ajax
-  $(".navigation").on("click", "a", function(event){
+  $(".navigation").on("click", ".about", function(event){
+    event.preventDefault();
     var link = $(this).attr("href");
     if(link.indexOf("about")){
       event.preventDefault();

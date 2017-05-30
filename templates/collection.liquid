@@ -468,12 +468,12 @@
 <div class="collection-grid group">
   <div class="collection-wrapper group">
     {% assign collec_query = collection.metafields.c_f.collection_mobile_image | split: '?' %}
-    {{collec_query}}
+    <!-- {{collec_query}} -->
     {% assign collec_array = collec_query.first | split: '/' %}
     <div class="{{collection.image}}">
 
     </div>
-    {% if collection.image != blank or collection.metafields.c_f.media_video_mp4 != blank %}
+    {% if collection.image != blank and collection.metafields.c_f.collection_mobile_image != blank or collection.metafields.c_f.media_video_mp4 != blank %}
       <div class="product feature fullscreen">
         {% if collection.metafields.c_f.media_video_mp4 != blank %}
           <video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>

@@ -1,6 +1,36 @@
 {% comment %} Sanity check to prevent infinite recursion {% endcomment %}
+<style media="screen">
+  .mobile-nav {
+    display: none;
+  }
+  @media all and (max-width: 640px){
+    .mobile-nav {
+      display: block;
+    }
+    .desktop-nav {
+      display: none;
+    }
+  }
 
-<ul data-menu-handle="{{ recursive-navigation-helper }}">
+</style>
+<script type="text/javascript">
+$(".navigation").on("click", ".mobile-nav", function(event){
+  event.preventDefault();
+  $('body').toggleClass('no-scroll')
+  $('.shop-nav-mobile').toggle()
+  $('.cart-icon-text, .mobile-nav-text').toggleClass('black')
+
+  if ( $('.cart-icon-text').hasClass('black')) {
+    $('.mobile-nav-text').html('Close')
+    $('.main-logo-mobile .back').css('opacity', 1)
+  }else {
+    $('.mobile-nav-text').html('Shop')
+    $('.main-logo-mobile .back').css('opacity', 0)
+  }
+
+})
+</script>
+<ul data-menu-handle="{{ recursive-navigation-helper }}" class="desktop-nav">
 {% for link in linklists.[recursive-navigation-helper].links %}
     <li class="active">
         <a class="{{ link.title | downcase}}" href="{{ link.url }}" >
@@ -8,4 +38,13 @@
         </a>
     </li>
 {% endfor %}
+</ul>
+<ul data-menu-handle="{{ recursive-navigation-helper }}" class="mobile-nav">
+    <li class="active">
+        <a class="{{ link.title | downcase}}" href="{{ link.url }}" >
+          <div class="mobile-nav-text">
+            Menu
+          </div>
+        </a>
+    </li>
 </ul>

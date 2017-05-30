@@ -194,6 +194,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 </style>
 
 {% endif %}
+{% include 'shop-nav' %}
 <body class="template-{{ template | split: '.' | first }} {% if template != 'index' %}scrolling{% endif %}">
     {% include 'nav' %}
     <div class="page_wrapper">
@@ -462,5 +463,3 @@ var google_remarketing_only = false;
 {% include 'sca-quick-view-template' %}
  </body>
 </html>
-
- 

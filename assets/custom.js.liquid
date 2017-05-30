@@ -79,7 +79,11 @@ $(document).ready(function(e){
   $(".navigation").on("click", ".shop", function(event){
     event.preventDefault();
     $('.shop-nav').fadeToggle()
+    $('body').toggleClass('no-scroll')
+    $('body').toggleClass('blur')
+    $('.about').toggleClass('unclickable')
   });
+  
 
 
   // About ajax

@@ -1,0 +1,203 @@
+<style>
+.shop-nav {
+	display: none;
+	position: absolute;
+	font-size: 20px;
+	color: red;
+	z-index: 9;
+	width: 50%;
+	text-align: center;
+	padding: 0;
+	height: auto;
+	background-color: white;
+	list-style-type: none;
+	margin: 0;
+	overflow-y: scroll;
+	height: 100vh;
+}
+.shop-nav::-webkit-scrollbar {
+	display: none;
+}
+.shop-nav li {
+	text-align: center;
+	min-height: 300px;
+	/*display: inline-block;*/
+	display: table;
+	float: left;
+	height: 25%;
+	list-style-type: none;
+	width: 50%;
+	background-size: cover;
+}
+.shop-nav .full-width {
+	width: 100%!important;
+}
+.shop-nav-title {
+	display: table-cell;
+	vertical-align: middle;
+	color: white;
+	font-weight: bold;
+	letter-spacing: 1.6px;
+	text-align: center;
+	color: #ffffff;
+}
+
+.no-scroll {
+	overflow: hidden;
+}
+
+.unclickable {
+	color: #5b5b5b!important;
+	pointer-events: none!important;
+}
+
+.blur {
+	opacity: 0.75;
+}
+
+.shop-nav-mobile {
+	display: none;
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 70px 30px 30px 30px;
+}
+
+.shop-nav-mobile .shop-nav-mobile-dropdown .shop-nav-title{
+	color: black;
+  text-decoration: none;
+  font-style: normal;
+  font-size: 14px;
+  font-family: Helvetica;
+  letter-spacing: normal;
+  font-weight: normal;
+}
+
+.shop-nav-mobile-dropdown {
+
+}
+
+.shop-nav-mobile button{
+	min-width: 60px;
+	min-height: 15px;
+	font-size: 17px;
+	letter-spacing: 2.5px;
+	font-weight: 700;
+	margin-top: 30px;
+
+}
+.shop-nav-mobile ul{
+	padding: 0 0 30px 0;
+	margin: 0;
+}
+.shop-nav-mobile ul li{
+	list-style-type: none;
+	padding-top: 25px;
+	font-size: 16px;
+	text-decoration: none;
+}
+
+.shop-nav-mobile ul li:hover {
+	cursor: pointer;
+}
+
+.black {
+	color: black!important;
+}
+
+@media all and (max-width: 640px){
+	.desktop-nav {
+		display: none;
+	}
+}.shop-nav-mobile-about {
+	margin-bottom: 30px;
+}
+
+hr {
+	box-sizing: content-box; */
+  margin-top: 70px;
+  width: 500px;
+	border-bottom: 1px solid #d9d9d4;
+	margin: 0 0 0 -30px;
+}
+
+</style>
+
+<ul class="shop-nav">
+	{% for link in linklists.navigation.links %}
+		<a href="{{link.url}}">
+			<li {% if link.object.metafields.navigation.full == 'true' %}class="full-width"{% endif %} style="background-image: url('{{link.object.metafields.navigation.shopimage}}')">
+				<div class="shop-nav-title">
+					{{link.title}}
+				</div>
+			</li>
+		</a>
+	{% endfor %}
+</ul>
+
+<div class="shop-nav-mobile">
+	<hr>
+	<button type="button shop-nav-mobile-button" name="button">Shop</button>
+	<ul class="shop-nav-mobile-dropdown">
+		{% for link in linklists.navigation.links %}
+			<a href="{{link.url}}">
+				<li>
+					<div class="shop-nav-title">
+						{{link.title}}
+					</div>
+				</li>
+			</a>
+		{% endfor %}
+	</ul>
+	<hr>
+	<button type="button" name="button shop-nav-mobile-about" style="margin-bottom:30px;">About</button>
+
+
+<style media="screen">
+	#mc_embed_signup_nav {
+		padding-top: 30px;
+	}
+	#mc_embed_signup_nav .arrow {
+		color: gray;
+		content: "→";
+		cursor: pointer;
+		font-size: 28px;
+		height: 30px;
+		line-height: 30px;
+		position: relative;
+		text-align: right;
+		margin-top: -30px;
+		width: 30px;
+		float: right;
+	}
+
+	#mc_embed_signup_nav #mce-EMAIL{
+		border: 0;
+		border-bottom: 2px solid #e7e7e1;
+		width: 100%;
+		padding-left: 0;
+	}
+
+</style>
+<hr>
+	<div id="mc_embed_signup_nav">
+    <form action="//knowlita.us6.list-manage.com/subscribe/post?u=11dc9e1acab61ce95a8f5abd3&amp;id=9ba4591bff" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="novalidate">
+      <div id="mc_embed_signup_scroll">
+
+        <div class="mc-field-group">
+          <input type="email" value="" name="EMAIL" class="required email" placeholder="Email Sign-up. Never Spam, Fam." text="test" id="mce-EMAIL" aria-required="true">
+						<div class="arrow">→</div>
+					</input>
+        </div>
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_11dc9e1acab61ce95a8f5abd3_9ba4591bff" tabindex="-1" value=""></div>
+        <div class="clear" style="display:none;">
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

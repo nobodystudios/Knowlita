@@ -481,62 +481,8 @@
   <div class="disable-hover" style="position: fixed;z-index: 590;width: 16%;left: 42%;top: 0;height: 100%;"></div>
   <div class="disable-hover" style="position: fixed;z-index: 590;width: 8%;right: 0%;top: 0;height: 100%;"></div>
   <div class="collection-grid group">
-    <style>
-    .shop-nav {
-      display: none;
-      position: absolute;
-      font-size: 20px;
-      color: red;
-      z-index: 9;
-      width: 50%;
-      text-align: center;
-      padding: 0;
-      height: auto;
-      background-color: white;
-      list-style-type: none;
-      margin: 0;
-      overflow-y: scroll;
-      height: 100vh;
-    }
-    .shop-nav::-webkit-scrollbar {
-      display: none;
-    }
-    .shop-nav li {
-      text-align: center;
-      min-height: 300px;
-      /*display: inline-block;*/
-      display: table;
-      float: left;
-      height: 25%;
-      list-style-type: none;
-      width: 50%;
-      background-size: cover;
-    }
-    .shop-nav .full-width {
-      width: 100%!important;
-    }
-    .shop-nav-title {
-      display: table-cell;
-      vertical-align: middle;
-      color: white;
-      font-weight: bold;
-      letter-spacing: 1.6px;
-      text-align: center;
-      color: #ffffff;
-    }
-    </style>
 
-    <ul class="shop-nav">
-      {% for link in linklists.naviguation.links %}
-        <a href="{{link.url}}">
-          <li {% if link.object.metafields.naviguation.full == 'true' %}class="full-width"{% endif %} style="background-image: url('{{link.object.metafields.naviguation.shopimage}}')">
-            <div class="shop-nav-title">
-              {{link.title}}
-            </div>
-          </li>
-        </a>
-      {% endfor %}
-    </ul>
+
 
 
     {% for j in (1..10) %}

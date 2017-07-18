@@ -1,10 +1,14 @@
 <style>
+.shop ,.about {
+	z-index: 99999;
+	padding-left: 7px!important;
+	letter-spacing: 2px!important;
+}
 .shop-nav {
-	display: none;
-	position: absolute;
+	position: fixed;
 	font-size: 20px;
 	color: red;
-	z-index: 9;
+	z-index: 591;
 	width: 50%;
 	text-align: center;
 	padding: 0;
@@ -14,9 +18,15 @@
 	margin: 0;
 	overflow-y: scroll;
 	height: 100vh;
+	-webkit-transition: margin 0.5s; /* For Safari 3.1 to 6.0 */
+	transition: margin 0.5s;
 }
 .shop-nav::-webkit-scrollbar {
 	display: none;
+}
+
+.hide-nav {
+	margin-left: -50%;
 }
 .shop-nav li {
 	text-align: center;
@@ -29,26 +39,61 @@
 	width: 50%;
 	background-size: cover;
 }
+.shop-nav li:hover .shop-nav-hover {
+	display: block;
+}
+.shop-nav .full-width .shop-nav-title {
+	font-size: 26px;
+	letter-spacing: 3.2px;
+}
+.shop-nav .shop-nav-title {
+	font-size: 17px;
+	letter-spacing: 2.2px;
+}
+
+.shop-nav .has-hover:hover {
+	background-size: 0 0;
+}
+
+
 .shop-nav .full-width {
 	width: 100%!important;
 }
-.shop-nav-title {
+
+.shop-nav .shop-nav-title {
 	display: table-cell;
+	opacity: 0;
 	vertical-align: middle;
 	color: white;
 	font-weight: bold;
 	letter-spacing: 1.6px;
 	text-align: center;
 	color: #ffffff;
+	-webkit-transition: opacity 0.5s ease-in;
+       -moz-transition: opacity 0.5s ease-in;
+        -ms-transition: opacity 0.5s ease-in;
+         -o-transition: opacity 0.5s ease-in;
+            transition: opacity 0.5s ease-in;
+}
+
+.shop-nav .show-title {
+	opacity: 1;
 }
 
 .no-scroll {
 	overflow: hidden;
 }
+@media all and (max-width: 640px){
+	.no-scroll {
+		overflow: hidden;
+		position:fixed;
+	}
+}
+
 
 .unclickable {
 	color: #5b5b5b!important;
-	pointer-events: none!important;
+	/*pointer-events: none!important;*/
 }
 
 .blur {
@@ -61,6 +106,11 @@
 	overflow-x: hidden;
 	overflow-y: scroll;
 	padding: 70px 30px 30px 30px;
+	-webkit-overflow-scrolling: touch;
+	/*position: fixed;
+	background-color: white;
+	top: 0;
+	z-index: 1;*/
 }
 
 .shop-nav-mobile .shop-nav-mobile-dropdown .shop-nav-title{
@@ -120,13 +170,70 @@ hr {
 	border-bottom: 1px solid #d9d9d4;
 	margin: 0 0 0 -30px;
 }
+.black-overlay {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: black;
+	z-index: 590;
+	opacity: 0.5;
+}
+#mc_embed_signup_nav {
+	padding-top: 30px;
+}
+#mc_embed_signup_nav .arrow {
+	color: gray;
+	content: "→";
+	cursor: pointer;
+	font-size: 28px;
+	height: 30px;
+	line-height: 30px;
+	position: relative;
+	text-align: right;
+	margin-top: -30px;
+	width: 30px;
+	float: right;
+}
 
+.transparent {
+	background-color: transparent!important;
+}
+
+
+#mc_embed_signup_nav #mce-EMAIL{
+	border: 0;
+	border-bottom: 2px solid #e7e7e1;
+	width: 100%;
+	padding-left: 0;
+}
+.shop-nav-hover {
+	display: none;
+  width: 50%;
+  min-height: 300px;
+  position: absolute;
+  background-size: cover;
+}
+.shop-nav-title-active {
+	display: none;
+	margin-top: 4px;
+  width: 35px;
+  height: 2px;
+  background-color: white;
+}
+a.shop.active:after {
+    bottom: 11px;
+    opacity: 1;
+}
 </style>
-
-<ul class="shop-nav">
+<div class="black-overlay"></div>
+<ul class="shop-nav hide-nav">
 	{% for link in linklists.navigation.links %}
 		<a href="{{link.url}}">
-			<li {% if link.object.metafields.navigation.full == 'true' %}class="full-width"{% endif %} style="background-image: url('{{link.object.metafields.navigation.shopimage}}')">
+			<li data-hover="{{link.object.metafields.navigation.shopimagehover}}" data-image="{{link.object.metafields.navigation.shopimage}}" class="{% if link.object.metafields.navigation.full == 'true' %}full-width {% endif %}{% if link.object.metafields.navigation.shopimagehover %} has-hover {%endif%}" style="background-image: url('{{link.object.metafields.navigation.shopimage}}')">
+				{% if link.object.metafields.navigation.shopimagehover %}
+					<div class="shop-nav-hover {% if link.object.metafields.navigation.full == 'true' %}full-width{% endif %}" style="background-image: url('{{link.object.metafields.navigation.shopimagehover}}')"></div>
+				{% endif %}
 				<div class="shop-nav-title">
 					{{link.title}}
 				</div>
@@ -149,38 +256,12 @@ hr {
 			</a>
 		{% endfor %}
 	</ul>
+
 	<hr>
-	<button type="button" name="button shop-nav-mobile-about" style="margin-bottom:30px;">About</button>
+	<button type="button" name="button shop-nav-mobile-about" style="margin-bottom:30px;" onclick="$('.about').click()">About</button>
+	<hr>
 
-
-<style media="screen">
-	#mc_embed_signup_nav {
-		padding-top: 30px;
-	}
-	#mc_embed_signup_nav .arrow {
-		color: gray;
-		content: "→";
-		cursor: pointer;
-		font-size: 28px;
-		height: 30px;
-		line-height: 30px;
-		position: relative;
-		text-align: right;
-		margin-top: -30px;
-		width: 30px;
-		float: right;
-	}
-
-	#mc_embed_signup_nav #mce-EMAIL{
-		border: 0;
-		border-bottom: 2px solid #e7e7e1;
-		width: 100%;
-		padding-left: 0;
-	}
-
-</style>
-<hr>
-	<div id="mc_embed_signup_nav">
+	<div id="mc_embed_signup_nav" style="max-width: calc(100% - 200px);margin-bottom:50px;">
     <form action="//knowlita.us6.list-manage.com/subscribe/post?u=11dc9e1acab61ce95a8f5abd3&amp;id=9ba4591bff" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="novalidate">
       <div id="mc_embed_signup_scroll">
 

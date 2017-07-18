@@ -18,3 +18,17 @@ production:
   store: knowlita.myshopify.com
   ignore_files:
     - config/settings_data.json
+
+production_methellfield:
+  password: d679eb8732f63fcb2576a4964c8bf2b7
+  theme_id: "169619593"
+  store: knowlita.myshopify.com
+  ignore_files:
+    - config/settings_data.json
+
+qa:
+  password: d679eb8732f63fcb2576a4964c8bf2b7
+  theme_id: "171573257"
+  store: knowlita.myshopify.com
+  ignore_files:
+    - config/settings_data.json

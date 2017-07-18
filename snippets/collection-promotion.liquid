@@ -14,14 +14,14 @@ Old metafields:
 - promotion.promo_description
 
 New metafields this snippet uses :
-- promotion.promo_link{id}
-- promotion.promo_color_background{id}
-- promotion.promo_image{id}
-- promotion.promo_media_video_mp4{id}
-- promotion.promo_image_mobile{id}
-- promotion.promo_description_vertical{id}
-- promotion.promo_color_text{id}
-- promotion.promo_description{id} -->
+- c_f.promo_link{id}
+- c_f.promo_color_background{id}
+- c_f.promo_image{id}
+- c_f.promo_media_video_mp4{id}
+- c_f.promo_image_mobile{id}
+- c_f.promo_description_vertical{id}
+- c_f.promo_color_text{id}
+- c_f.promo_description{id} -->
 
 {% assign promo_link = "promo_link" | append: id %}
 {% assign promo_color_background = "promo_color_background" | append: id %}
@@ -31,36 +31,43 @@ New metafields this snippet uses :
 {% assign promo_description_vertical = "promo_description_vertical" | append: id %}
 {% assign promo_color_text = "promo_color_text" | append: id %}
 {% assign promo_description = "promo_description" | append: id %}
+{% assign promo_button = "promo_button" | append: id %}
+{% assign promo_button_text = "promo_button_text" | append: id %}
 
-{% assign promo_link = collection.metafields.promotion[promo_link] %}
-<a class="product promo group" style="background-color:#{{ collection.metafields.promotion[promo_color_background] }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
+{% assign promo_link = collection.metafields.c_f[promo_link] %}
+<a class="product promo group" style="background-color:#{{ collection.metafields.c_f[promo_color_background] }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
 	{% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
-	{% if collection.metafields.promotion[promo_image] != blank and collection.metafields.promotion[promo_media_video_mp4] == blank %}
-		{% assign split_query = collection.metafields.promotion[promo_image] | split: '?' %}
+	{% if collection.metafields.c_f[promo_image] != blank and collection.metafields.c_f[promo_media_video_mp4] == blank %}
+		{% assign split_query = collection.metafields.c_f[promo_image] | split: '?' %}
 		{% assign promo_array = split_query.first | split: '/' %}
-		{% if collection.metafields.promotion[promo_image_mobile] != blank %}
-			{% assign split_query_mobile = collection.metafields.promotion[promo_image_mobile] | split: '?' %}
+		{% if collection.metafields.c_f[promo_image_mobile] != blank %}
+			{% assign split_query_mobile = collection.metafields.c_f[promo_image_mobile] | split: '?' %}
 			{% assign promo_array_mobile = split_query_mobile.first | split: '/' %}
 		{% endif %}
-		<div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collection.metafields.promotion[promo_image_mobile] != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
+		<div class="image" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{% if collection.metafields.c_f[promo_image_mobile] != blank %}{{ promo_array_mobile.last | file_img_url: '600x' }}{% else %}{{ promo_array.last | file_img_url: '600x' }}{% endif %}"></div>
 	{% endif %}
-	{% if collection.metafields.promotion[promo_media_video_mp4] != blank %}
-		{% assign split_query = collection.metafields.promotion[promo_image] | split: '?' %}
+	{% if collection.metafields.c_f[promo_media_video_mp4] != blank %}
+		{% assign split_query = collection.metafields.c_f[promo_image] | split: '?' %}
 		{% assign promo_array = split_query.first | split: '/' %}
 		<video class="video" autoplay muted loop preload="metadata" playsinline>
-			<source src="{{ collection.metafields.promotion[promo_media_video_mp4] }}" type="video/mp4" />
-				{% if collection.metafields.promotion[promo_media_video_webm] != blank %}
-					<source src="{{ collection.metafields.promotion[promo_media_video_webm] }}" type="video/webm" />
+			<source src="{{ collection.metafields.c_f[promo_media_video_mp4] }}" type="video/mp4" />
+				{% if collection.metafields.c_f[promo_media_video_webm] != blank %}
+					<source src="{{ collection.metafields.c_f[promo_media_video_webm] }}" type="video/webm" />
 				{% endif %}
 			<img src="" data-image="{{ promo_array.last | file_img_url: '2048x' }}" data-image-m="{{ promo_array.last | file_img_url: '600x' }}" />
 		</video>
 	{% endif %}
-	<div class="content {% if collection.metafields.promotion[promo_description_vertical] == blank %}centered{% endif %}">
-		<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collection.metafields.promotion[promo_color_text] }};">{{ collection.metafields.promotion[promo_description] | newline_to_br }}</h2>
-		<div class="outer">
-			<div class="middle">
-				<p class="vertical" style="color:#{{ collection.metafields.promotion[promo_color_text] }};">{{ collection.metafields.promotion[promo_description_vertical] }}</p>
+	<div class="content {% if collection.metafields.c_f[promo_description_vertical] == blank %}centered{% endif %}">
+		{% if collection.metafields.c_f[promo_button] != blank %}
+			<div class="button" style="padding: 16px 10px 16px;letter-spacing: 3px;">{{collection.metafields.c_f[promo_button]}}</div></br>
+			<h3 style="font-size: 24px;font-weight: bold;letter-spacing: 3px;padding-top: 9px;">{{collection.metafields.c_f[promo_button_text]}}</h3>
+		{% else %}
+			<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collection.metafields.c_f[promo_color_text] }};">{{ collection.metafields.c_f[promo_description] | newline_to_br }}</h2>
+			<div class="outer">
+				<div class="middle">
+					<p class="vertical" style="color:#{{ collection.metafields.c_f[promo_color_text] }};">{{ collection.metafields.c_f[promo_description_vertical] }}</p>
+				</div>
 			</div>
-		</div>
+		{% endif %}
 	</div>
 </a>

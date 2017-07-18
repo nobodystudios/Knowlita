@@ -72,22 +72,92 @@ function setupAbout(){
     });
   }
 
+  function animateShop() {
+    $('body').toggleClass('no-scroll')
+    $('.shop').toggleClass('active')
+    $('.shop-nav').toggleClass('hide-nav')
+    $('.black-overlay').fadeToggle()
+    $('.navigation').toggleClass('transparent');
+    $('.shop .shop-nav-title-active').fadeToggle()
+    // setTimeout(function() {
+
+
+    var isHalf = false;
+    var previousHalf = false;
+    var cpt = 0;
+    var animationTime = 0;
+    $('.shop-nav-title').each(function(i){
+      //  $(this).delay(3000).addClass('display-image');
+
+        var row = $(this);
+        if (row.parent().hasClass('full-width') == false) {
+          isHalf = true;
+          cpt ++;
+        }
+        if (isHalf && cpt%2 == 0) {
+
+        } else {
+          animationTime += 100;
+        }
+
+        setTimeout(function() {
+          row.toggleClass('show-title');
+        }, animationTime);
+    })
+    // }, 500);
+    $('.about').toggleClass('unclickable')
+
+  }
+
 
 
 
 $(document).ready(function(e){
+  console.log($('.shop-nav a li').length)
   $(".navigation").on("click", ".shop", function(event){
     event.preventDefault();
-    $('.shop-nav').fadeToggle()
-    $('body').toggleClass('no-scroll')
-    $('body').toggleClass('blur')
-    $('.about').toggleClass('unclickable')
-  });
-  
+    animateShop()
 
+  });
+
+  $(".black-overlay").click(function(event){
+    event.preventDefault();
+    $('.shop-nav').addClass('hide-nav')
+    $('.navigation').toggleClass('transparent');
+    $('.black-overlay').hide();
+    $('body').removeClass('no-scroll')
+    $('.about').removeClass('unclickable')
+    $('.shop').removeClass('active')
+    $('shop-nav-title-active').hide()
+    $('.shop-nav-title').removeClass('show-title')
+  });
+
+  // $('.shop-nav li').mouseover(function(){
+  //   // $(this).find('.shop-nav-hover')[0].css('display', 'absolute')
+  //   hover_image = $(this).find('.shop-nav-hover')[0]
+  //   $(hover_image).css('display', 'absolute')
+	// 	// var hover_image = $(this).data('hover')
+	// 	// if (hover_image) {
+  //   //   hover_image = 'url(' + hover_image + ')'
+	// 	// 	$(this).css('background-image', hover_image)
+	// 	// }
+	// })
+  //
+  // $('.shop-nav li').mouseleave(function(){
+  //   hover_image = $(this).find('.shop-nav-hover')[0]
+  //   $(hover_image).css('display', 'none')
+  //   // var image = $(this).data('image')
+  //   // var bg_image = $(this).css('background-image')
+  //   //
+  //   // if (bg_image != image) {
+  //   //   image = 'url(' + image + ')'
+  //   //   $(this).css('background-image', image)
+  //   // }
+  // })
 
   // About ajax
   $(".navigation").on("click", ".about", function(event){
+    console.log("yo")
     event.preventDefault();
     var link = $(this).attr("href");
     if(link.indexOf("about")){

@@ -154,6 +154,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
     box-sizing: border-box;
   }
 
+
 </style>
 
     {{ content_for_header }}
@@ -194,6 +195,16 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 </style>
 
 {% endif %}
+<div class="about-overlay group">
+  <a href="/" class="overlay-logo">
+    <img class="img front" src="//cdn.shopify.com/s/files/1/1757/1881/t/4/assets/knowlita_logo-mobile.svg?17426298952294693056" />
+  </a>
+  <div class="close mobile-show"><span>+</span></div>
+  <a href="/cart" class="mobile go-to-cart">Cart</a>
+  <div class="content group">
+
+  </div>
+</div>
 {% include 'shop-nav' %}
 <body class="template-{{ template | split: '.' | first }} {% if template != 'index' %}scrolling{% endif %}">
     {% include 'nav' %}
@@ -319,9 +330,7 @@ Shopify.money_format = '{{shop.money_format | replace: "'", '"'}}';
 
   {% if template != 'index' %}
   <style>
-    #content {
-      padding-top:56px;
-    }
+
     /*.hamburger {
       background:url({{'hamburger.png' | asset_url}} ) no-repeat;
       background-size:35px;

@@ -1,19 +1,11 @@
-<div class="desktop_only main-nav">
-  {% include 'header' %}
-  <div class="push-menu">
-    <div class="navigation">
-      {% include 'main-navigation' with 'main-menu' %}
-    </div>
-    <div class="cartlink">
-      <a class="cart-icon" href="/cart"><div class="cart-icon-text">CART</div><span>{% if cart.item_count != 0 %}({{cart.item_count}}){% endif %}</span></a>
-    </div>
-  </div>
-</div>
 <style>
   .navigation{
     left:0;
     max-width:100vw;
     right:auto;
+  }
+  .cart-icon-text {
+    display: inline-block;
   }
   .navigation ul {
     max-width:calc(50% - 55px);
@@ -86,8 +78,9 @@
     transition:background-color 350ms ease;
   }
   .scrolling .navigation{
-    background-color:#ffffff;
+    background-color:black;
   }
+
   .cartlink{
     right:60px;
     top:25px;
@@ -130,7 +123,7 @@
   .scrolling .cart-icon,
   .scrolling .cart-icon > span,
   .scrolling .navigation ul li a{
-    color:#000 !important;
+    color:white !important;
   }
   .main-logo,
   .main-logo-mobile,
@@ -213,14 +206,15 @@
     width:18px;
   }
   .main-logo img.back,
-  .main-logo-mobile img.back,
-  .scrolling .main-logo img,
-  .scrolling .main-logo-mobile img{
+  .main-logo-mobile img.back {
     opacity:0;
   }
   .scrolling .main-logo img.back,
-  .scrolling .main-logo-mobile img.back{
-    opacity:1;
+  .scrolling .main-logo-mobile img .back{
+    opacity:0;
+  }
+  .scrolling .main-logo-mobile img .front{
+    opacity:1!important;
   }
   .main-logo-overlay img.back{
     opacity:0 !important;
@@ -332,6 +326,19 @@
   }
 </style>
 
+<div class="desktop_only main-nav">
+  {% include 'header' %}
+  <div class="push-menu">
+    <div class="navigation">
+      {% include 'main-navigation' with 'main-menu' %}
+    </div>
+    <div class="cartlink">
+      <a class="cart-icon" href="/cart"><div class="cart-icon-text">CART</div><span>{% if cart.item_count != 0 %}({{cart.item_count}}){% endif %}</span></a>
+    </div>
+  </div>
+</div>
+
+
 <script type="text/javascript">
   function scrollMeasure(){
     var sthresh = 0.62; // % based thresh
@@ -341,36 +348,38 @@
 
     $(window).unbind("scroll");
     $(window).on("scroll", function(){
-        var st = $(this).scrollTop();
-        var diff = st - last;
-        var down = 0;
+				if ($('.shop-nav-mobile').css('display') != 'block') {
+					var st = $(this).scrollTop();
+					var diff = st - last;
+					var down = 0;
 
-        if(window.innerWidth <= 768){
-          down = 10;
-        }
-        // check top nav up/down
-        if(diff > down){
-            $(".main-nav").addClass("hideaway");
-            last = st;
-        } else if(diff < -thresh){
-            $(".main-nav").removeClass("hideaway");
-            last = st;
-        }
+					if(window.innerWidth <= 768){
+						down = 10;
+					}
+					// check top nav up/down
+					if(diff > down){
+							$(".main-nav").addClass("hideaway");
+							last = st;
+					} else if(diff < -thresh){
+							$(".main-nav").removeClass("hideaway");
+							last = st;
+					}
 
-        if(st > 350){
-          $(".scroll-to-shop").addClass("fade");
-        }
+					if(st > 350){
+						$(".scroll-to-shop").addClass("fade");
+					}
 
-        lastScroll = st;
+					lastScroll = st;
 
-        $(".product").each(function(){
-            var elem = $(this);
-            if(st >= elem.offset().top - (window.innerHeight * sthresh)){
-                elem.addClass("scrolled");
-            } else {
-                elem.removeClass("scrolled");
-            }
-        });
+					$(".product").each(function(){
+							var elem = $(this);
+							if(st >= elem.offset().top - (window.innerHeight * sthresh)){
+									elem.addClass("scrolled");
+							} else {
+									elem.removeClass("scrolled");
+							}
+					});
+				}
     });
 }
 $(function(){

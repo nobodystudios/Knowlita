@@ -3,12 +3,29 @@ Need to pass :
 - id = of the section.
 -->
 
+<style media="screen">
+	.homepage-title{
+		font-family: 'bebas_neue_regularregular'!important;
+		font-size: 64px!important;
+		line-height: 77px!important;
+		letter-spacing: 8px!important;
+		color: #ffffff;
+		max-width: 350px;
+	}
+	@media (max-width: 788px) {
+		.collection-wrapper .product .content{
+			display: none;
+		}
+	}
+</style>
 {% assign checkbox = "homepage_section" | append: id %}
 {% assign thecollection = "homepage_collection" | append: id %}
 {% assign product_limit = "homepage_productlimit" | append: id %}
 {% assign main_image = "homepage_main_image" | append: id | append: '.jpg' %}
+{% assign main_image_mobile = "homepage_main_imagemobile" | append: id | append: '.jpg' %}
 {% assign heading_text = "homepage_main_text" | append: id %}
 {% assign collection_image_checkbox = "homepage_main_image_checkbox" | append: id %}
+{% assign main_button = "homepage_main_button" | append: id %}
 {% assign collection = settings[thecollection] %}
 
 
@@ -17,35 +34,50 @@ Need to pass :
 	<div class="collection-wrapper group">
 		{% assign collec_query = collections[collection].metafields.c_f.collection_mobile_image | split: '?' %}
 		{% assign collec_array = collec_query.first | split: '/' %}
-		<div class="product feature fullscreen">
-			{% if collections[collection].metafields.c_f.media_video_mp4 != blank %}
-				<video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
-					<source src="{{ collections[collection].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
-					<source src="{{ collections[collection].metafields.c_f.media_video_webm }}" type="video/webm" />
-					<img src="" data-image="{{ collections[collection].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}" />
-				</video>
-			{% else %}
-				{% if settings[collection_image_checkbox] %}
-					<div class="image" data-image="{{ main_image | asset_url }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
+
+		{% if collections[collection].metafields.c_f.media_video_mp4 != blank or collections[collection].image or settings[collection_image_checkbox] %}
+			<div class="product feature fullscreen">
+				{% if collections[collection].metafields.c_f.media_video_mp4 != blank %}
+					<video id="video-1" class="video" autoplay muted loop preload="metadata" playsinline>
+						<source src="{{ collections[collection].metafields.c_f.media_video_mp4 }}" type="video/mp4" />
+						<source src="{{ collections[collection].metafields.c_f.media_video_webm }}" type="video/webm" />
+						<img src="" data-image="{{ collections[collection].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}" />
+					</video>
 				{% else %}
-					<div class="image" data-image="{{ collections[collection].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
+					{% if settings[collection_image_checkbox] %}
+						<div class="image" data-image="{{ main_image | asset_url }}" data-image-m="{{ main_image_mobile | asset_url }}"></div>
+					{% else %}
+						<div class="image" data-image="{{ collections[collection].image | img_url: '2048x' }}" data-image-m="{{ collec_array.last | file_img_url: '1024x' }}"></div>
+					{% endif %}
 				{% endif %}
-			{% endif %}
-			<div class="content group">
-				{% if settings[heading_text] != blank %}
-					{{ settings[heading_text] }}
-				{% else %}
-					{{ collections[collection].description }}
-				{% endif %}
+				<div class="content group">
+					<div class="homepage-title">
+						{% if settings[heading_text] != blank %}
+							{{ settings[heading_text] }}
+						{% else %}
+							{{ collections[collection].description }}
+						{% endif %}
+					</div>
+					{% if settings[main_button] != blank %}
+					<div class="button" onclick="window.location='{{ collections[collection].url }}'" style="display:block;max-width: 130px;background-color: #ffffff; color: black; font-size: 18px; letter-spacing: 2.2px; text-align: center; margin-top:14px;">
+						{{settings[main_button]}}
+					</div>
+					{% endif %}
+				</div>
+				<div class="scroll-to-shop">
+					<div class="line"></div>
+				</div>
 			</div>
-			<div class="scroll-to-shop">
-				<p>Scroll to shop</p>
-				<div class="line"></div>
-			</div>
-		</div>
+		{% endif %}
 
 		{% assign promo_index = collections[collection].metafields.c_f.promo_position | times: 1 %}
-		{% for product in collections[collection].products limit:settings[product_limit] %}
+		{% assign product_limits = settings[product_limit] %}
+		{% assign num_product = collections[collection].all_products_count | plus: 1 %}
+
+
+		{% for i in (0..num_product) %}
+			{% assign product = collections[collection].products[i] %}
+
 			{% if forloop.index == promo_index %}
 				{% assign promo_link = collections[collection].metafields.c_f.promo_link %}
 				<a class="product promo group" style="background-color:#{{ collections[collection].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
@@ -71,26 +103,36 @@ Need to pass :
 						</video>
 					{% endif %}
 					<div class="content {% if collections[collection].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-						<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description | newline_to_br }}</h2>
-						<div class="outer">
-							<div class="middle">
-								<p class="vertical" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description_vertical }}</p>
+						{% if collection.metafields.c_f.promo_button != blank %}
+							<div class="button" style="padding: 16px 10px 16px;letter-spacing: 3px;">{{collection.metafields.c_f.promo_button}}</div></br>
+							<h3 style="font-size: 24px;font-weight: bold;letter-spacing: 3px;padding-top: 9px;">{{collection.metafields.c_f.promo_button_text}}</h3>
+						{% else %}
+							<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description | newline_to_br }}</h2>
+							<div class="outer">
+								<div class="middle">
+									<p class="vertical" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description_vertical }}</p>
+								</div>
 							</div>
-						</div>
+						{% endif %}
 					</div>
 				</a>
 			{% endif %}
-			<div class="product">
-				{% if product.metafields.c_f.secondary_image != blank %}
-					{% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
-					{% assign sec_image = sec_image_query.first | split: '/' %}
-					<a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
-						<span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
-					</a>
-				{% else %}
-					<a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
+
+				{% assign loop_index = forloop.index | plus: 0 %}
+				{% assign my_limit = settings[product_limit] | plus : 0 %}
+				{% if loop_index <= my_limit %}
+					<div class="product">
+						{% if product.metafields.c_f.secondary_image != blank %}
+							{% assign sec_image_query = product.metafields.c_f.secondary_image | split: '?' %}
+							{% assign sec_image = sec_image_query.first | split: '/' %}
+							<a class="image" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}">
+								<span class="image" data-image="{{ sec_image.last | file_img_url: '2048x' }}" data-image-m="{{ sec_image.last | file_img_url: '600x' }}"></span>
+							</a>
+						{% else %}
+							<a class="image transition" data-image="{{ product.featured_image | img_url: '2048x' }}" data-image-m="{{ product.featured_image | img_url: '600x' }}" href="{{ product.url }}"></a>
+						{% endif %}
+					</div>
 				{% endif %}
-			</div>
 		{% endfor %}
 
 	</div>

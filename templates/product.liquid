@@ -3,6 +3,7 @@
       <meta itemprop="name" content="{{ product.title }}" />
       <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
       <meta itemprop="image" content="http:{{ product.featured_image.src | product_img_url: 'grande' | remove: 'http:' | remove: 'https:' }}" />
+      <div id="is_saks" rel="{{ product.metafields.product.saks_link }}"></div>
       {% for variant in product.variants %}
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <meta itemprop="price" content="{{ variant.price | money_without_currency | strip_html }}" />

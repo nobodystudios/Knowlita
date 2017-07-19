@@ -109,9 +109,20 @@
   background-color:#000;
   min-width:300px !important;
   max-width:300px !important;
+  position: relative;
+}
+.sca-qv-optioncart .saks-btn{
+    display: block;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    line-height: 78px;
 }
 .sca-qv-optioncart input.sca-qv-cartbtn,
 .sca-qv-optioncart input.sca-qv-cartbtn-config,
+.sca-qv-optioncart .saks-btn,
 .sca-qv-product-options .go-to-cart{
   color:#ffffff !important;
   background:#000000 !important;
@@ -142,6 +153,7 @@
 }
 .sca-qv-optioncart input.sca-qv-cartbtn:hover,
 .sca-qv-optioncart input.sca-qv-cartbtn-config:hover,
+  .sca-qv-optioncart .saks-btn:hover,
 .go-to-cart:hover{
   color:#666666 !important;
 }
@@ -908,6 +920,7 @@ float:right;
   .sca-qv-product-options .sca-qv-optioncart,
   .sca-qv-optioncart input.sca-qv-cartbtn,
   .sca-qv-optioncart input.sca-qv-cartbtn-config,
+  .sca-qv-optioncart .saks-btn,
   .sca-qv-product-options .go-to-cart{
     min-width:250px !important;
     max-width:250px !important;
@@ -1016,12 +1029,17 @@ float:right;
     text-align: center;
   }
   .sca-qv-optioncart input.sca-qv-cartbtn,
+  .sca-qv-optioncart .saks-btn,
   .sca-qv-optioncart input.sca-qv-cartbtn-config{
     height: 75px !important;
     min-width:100% !important;
     max-width:100% !important;
   }
+  .sca-qv-optioncart .saks-btn{
+    line-height: 73px;
+  }
   .sca-qv-optioncart input.sca-qv-cartbtn:hover,
+  .sca-qv-optioncart .saks-btn:hover,
   .sca-qv-optioncart input.sca-qv-cartbtn-config:hover {
     color: #ffffff !important;
   }

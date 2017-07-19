@@ -683,6 +683,18 @@
 
       // Modify Description
       var $desc = $("#sca-qv-des").text();
+
+      // load saks link
+      $("#saks").load(url + " #is_saks", function(){
+        var is_saks = $("#is_saks").attr("rel");
+        if(is_saks !== undefined && is_saks !== ""){
+          // append new button to saks link
+          $("#saks").html("<a class='saks-btn' href='" + is_saks + "' target='_blank'>Shop at Saks</a>");
+        } else {
+          $("#saks").html("");
+        }
+      });
+      
       $(".sca-product-description").load(url + " .detail .description", function(){
 
         $('.description.toggle').append($('<span id="tabs-parent"></span>'));

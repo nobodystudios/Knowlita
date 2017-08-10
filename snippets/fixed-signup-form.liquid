@@ -1,0 +1,472 @@
+<style type="text/css">
+	#signup-success{
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		background-position: center;
+		background-size: cover;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		z-index: 111111;
+		opacity: 0;
+		transition: opacity .25s ease-out;
+	}
+	
+	#signup-success.onFire {
+		display: flex;
+	}
+	
+	#signup-success video{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translateX(-50%) translateY(-50%);
+		transform: translateX(-50%) translateY(-50%);
+		min-width: 100%;
+		min-height: 100%;
+		width: auto;
+		height: auto;
+	}
+	
+	#signup-success .success-animation{
+		display: flex;
+		justify-content: center;
+		-webkit-align-items: center;
+		align-items: center;
+		flex-flow: row wrap;
+		width: 100%;
+		height: 80px;
+		position: absolute;
+	}
+	
+	#signup-success .success-animation .success-icon{
+		background-image: url('{{ 'fire.png' | asset_url }}');
+		background-size: cover;
+		width: 100px;
+		height: 100px;
+		margin: 0 15px;
+		opacity: 0;
+		-webkit-transition:opacity 200ms ease-out;
+		-moz-transition:opacity 200ms ease-out;
+		-ms-transition:opacity 200ms ease-out;
+		transition:opacity 200ms ease-out;
+		transition-delay: 200ms;
+	}
+	
+	#signup-success.onFire .success-animation .success-icon:nth-child(1){
+		transition-delay: 200ms;
+	}
+	
+	#signup-success.onFire .success-animation .success-icon:nth-child(2){
+		transition-delay: 400ms;
+	}
+	
+	#signup-success.onFire .success-animation .success-icon:nth-child(3){
+		transition-delay: 600ms;
+	}
+	
+	#signup-success.onFire .success-animation .success-icon.onFire{
+		opacity: 1;
+	}
+	
+	#signup-success img{
+		position: absolute;
+		margin-top: 200px;
+	}
+	
+	.fixed-signup-form{
+		width: 100%;
+		height: 100px;
+		background-color: #454545;
+		color: white;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		padding: 0 60px;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+		-webkit-transform: translateY(190px);
+		-moz-transform: translateY(190px);
+		-ms-transform: translateY(190px);
+		transform: translateY(190px);
+		transition: transform .5s ease-out;
+		z-index: 999;
+	}
+	
+	.fixed-signup-form.visible{
+		-webkit-transform: translateY(0);
+		-moz-transform: translateY(0);
+		-ms-transform: translateY(0);
+		transform: translateY(0);
+	}
+	
+	.fixed-signup-form .form-container{
+		width: 100%;
+		max-width: 800px;
+	}
+	
+	.fixed-signup-form p{
+		margin: 0;
+		font-size: 18px;
+		letter-spacing: 1.8px;
+		font-weight: bold;
+	}
+	
+	.button-email{
+		min-width: 0 !important;
+		padding: 0 0 0 10% !important;
+	}
+	
+	.mc-input{
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid white;
+		justify-content: space-between;
+	}
+	
+	.mc-input input{
+		border: none;
+		width: 100%;
+		font-size: 12px;
+		font-family: 'Helvetica';
+		background-color: #454545;
+		color: white;
+		padding: 0;
+	}	
+	
+	.mc-input input::-webkit-input-placeholder{
+		color: white;
+		text-transform: none;
+	}
+	.mc-input input::placeholder{
+		color: white;
+		text-transform: none;
+	}
+	
+	.mc-input input::-webkit-placeholder-shown{
+		background-color: #454545;
+	}
+    
+	.mc-input input::placeholder-shown{
+		background-color: #454545;
+	}
+	
+	.fixed-signup-form img{
+		position: relative;
+		bottom: 30px;
+	}
+	
+	#close-subscribe{
+		font-family: 'Helvetica';
+		font-weight: 300;
+		font-size: 22px;
+	}
+	
+	#close-subscribe:hover{
+		cursor: pointer;
+	}
+	
+	.mc-input .arrow:hover{
+		cursor: pointer;
+	}
+	
+	@media(max-width: 1350px){
+		.fixed-signup-form .form-container{
+			width: 50%;
+		}
+	}
+	
+	@media(max-width: 1150px){
+		.fixed-signup-form{
+			padding: 0 15px;
+		}
+		
+		.fixed-signup-form p{
+			position: absolute;
+			bottom: 60px; 
+		}
+		
+		.fixed-signup-form .form-container{
+			max-width: none;
+			width: 100%;
+			position: relative;
+			bottom: -5px;
+		}
+		
+		.fixed-signup-form img{
+			display: none;
+		}
+		
+		.fixed-signup-form #close-subscribe{
+			-webkit-align-self: flex-end;
+			align-self: flex-end;
+			position: absolute;
+			top: 10px;
+			right: 15px;
+		}
+		
+		#signup-success{
+			background-color: rgba(0, 0, 0, .80);
+			justify-content: flex-start;
+		}
+		
+		#signup-success .success-animation{
+			position: relative;
+			margin: auto;
+		}
+		
+		#signup-success video{
+			display: none;
+		}
+		
+		#signup-success img{
+			display: none;
+		}
+		
+		#signup-success .success-animation .success-icon{
+			margin: 0;
+			position: relative;
+		}
+		
+	}
+	
+	
+	
+</style>
+<div id="signup-success">
+	<video width="100%" height="100%" id="success-video" muted="muted" >
+		<source type="video/mp4" src="{{ 'lebron.mp4' | asset_url }}" />
+	</video>
+	<div class="success-animation">
+		<div class="success-icon"></div>
+		<div class="success-icon"></div>
+		<div class="success-icon"></div>
+	</div>
+	<img src="{{ 'k.png' | asset_url }}" />
+</div>
+
+<section class="fixed-signup-form">
+	<p>NEVER SPAM, FAM.</p>
+	<div class="form-container">
+		<form action="https://knowlita.us6.list-manage.com/subscribe/post-json?u=11dc9e1acab61ce95a8f5abd3&amp;id=9ba4591bff" method="get" name="mc-embedded-subscribe-form" id="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+			<div>
+
+				<div class="mc-input">
+					<input type="email" value="" name="EMAIL" class="required email" placeholder="Enter your email for 20% Off" id="mce-EMAIL" />
+					<input type="submit" value="→" name="subscribe" id="mc-embedded-subscribe" class="button-email"></input>
+				</div>
+				<div id="mce-responses" class="clear">
+					<div class="response" id="mce-error-response" style="display:none">please enter a valid email address</div>
+					<div class="response" id="mce-success-response" style="display:none"></div>
+				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_11dc9e1acab61ce95a8f5abd3_9ba4591bff" tabindex="-1" value=""></div>
+				<div class="clear" style="display:none;">
+			
+				</div>
+			</div>
+		</form>
+	</div>
+	{{ "lebron-sm.png" | asset_url | img_tag }}
+	<p id="close-subscribe">x</p>
+	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+	<script type='text/javascript'>
+		(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='COMPANY';ftypes[3]='text';fnames[4]='ADDRESS';ftypes[4]='address';fnames[5]='MMERGE5';ftypes[5]='text';}(jQuery));var $mcj = jQuery.noConflict(true);
+	</script>
+  <!--End mc_embed_signup-->
+	
+	<script>
+		
+		//SET EXPIRATION OF COOKIE TO 1 DAY
+		var expire = new Date();
+		var now = new Date();
+		
+		expire.setFullYear(now.getFullYear());
+		expire.setMonth(now.getMonth());
+		expire.setDate(now.getDate()+1);
+		expire.setHours(0);
+		expire.setMinutes(0);
+		expire.setSeconds(0);
+		
+		var expires = "expires="+expire.toString();
+		
+		
+		//POP UP ON SCROLL
+		var formContainer = document.querySelector('.fixed-signup-form');
+		
+		var visibleForm = function() {
+			
+			if(window.pageYOffset >= 500 && !formContainer.classList.contains('visible') ){
+				formContainer.classList.add('visible');
+			};
+			
+		}
+		
+		if (document.cookie.replace(/(?:(?:^|.*;\s*)visited\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true") {
+			window.addEventListener('scroll', visibleForm )
+		}
+		
+		
+		//CLOSE SUBSCRIBE ON X
+		var closeX = document.getElementById('close-subscribe');
+		var successScreen = document.getElementById('signup-success');
+		var successVideo = document.getElementById('success-video');
+		var fireIcons = document.getElementsByClassName('success-icon');
+		
+		successVideo.muted = true;
+		
+		var hiddenForm = function() {
+			
+			//CREATE COOKIE FOR ONE TIME SNIPPET
+			document.cookie = 'visited=true;' + expires + '; path=/';
+			
+			window.removeEventListener('scroll', visibleForm );
+			formContainer.classList.remove('visible');
+			
+		};
+		
+		closeX.addEventListener('click', hiddenForm );
+		
+		
+		//SUBMIT FORM	
+		function submitted() {
+			
+			//CREATE COOKIE FOR ONE TIME SNIPPET
+			document.cookie = 'visited=true;' + expires + '; path=/';
+			
+			window.removeEventListener('scroll', visibleForm );
+			formContainer.classList.remove('visible');
+			successScreen.classList.add('onFire');
+			
+			successScreen.style.opacity = "1";
+			
+			if(window.innerWidth > 1150){
+				successVideo.play();
+			}
+			
+			setTimeout(function() {
+				fireIcons[0].classList.add('onFire');
+				fireIcons[1].classList.add('onFire');
+				fireIcons[2].classList.add('onFire');
+			}, 100)	
+			
+			Array.prototype.slice.call(fireIcons).forEach(function(e) {
+				setTimeout(function() {
+					e.classList.remove('onFire');
+				}, 1200)
+			})
+			
+			setTimeout(function() {
+				fireIcons[0].classList.add('onFire');
+				fireIcons[1].classList.add('onFire');
+				fireIcons[2].classList.add('onFire');
+			}, 2000)
+			
+			setTimeout(function() {
+				successScreen.style.opacity = "0";
+			}, 3000)
+			
+			setTimeout(function() {
+				successScreen.classList.remove('onFire');
+			}, 3250)
+			
+		};
+		
+		
+		//AJAX LOAD
+		const arrow = $("#mc-embedded-subscribe");
+		const $form = $('#mc-embedded-subscribe-form');
+		
+		
+		
+		$("body").on("submit", "#mc-embedded-subscribe-form", function(event){
+			
+			event.preventDefault();
+			
+			var email = this.children[0].children[0].children[0].value;
+			
+			$.ajax({
+				type: 'GET',
+				url: 'https://knowlita.us6.list-manage.com/subscribe/post-json',
+				data: "u=11dc9e1acab61ce95a8f5abd3&id=9ba4591bff&EMAIL=" + email,
+				cache: false,
+				dataType: 'jsonp',
+				jsonp: 'c',
+				contentType: "application/json; charset=utf-8",
+				error: function(err) { alert("Could not connect to the registration server. Please try again later."); },
+				success: function(data) {
+					if (data.result != "success") {
+						console.log(data.msg)
+					} else {
+						submitted();
+					}
+				}
+			});
+		});
+		
+//		let xhr; 
+//		
+//		function mailChimpRequest(url, email) {
+//			
+//			xhr = new XMLHttpRequest(); 
+//
+//			if(!xhr) {
+//				console.log('nothing to see here...');
+//			}
+//
+//			xhr.onreadystatechange = completed;
+//			xhr.open('GET', url + email);
+//			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+//			xhr.send();
+//		
+//		}
+//		
+//		function completed() {
+//			if(xhr.readyState === XMLHttpRequest.DONE) {
+//				if(xhr.status === 200) {
+//					submitted();
+//				} else {
+//					console.log('MERP... try again');
+//				}
+//			}
+//		}
+//		
+//				
+//		document.body.addEventListener('submit', function(event) {
+//			event.preventDefault();
+//			
+//			if(event.target && event.target.matches('form.validate')){
+//				
+//				console.log(event.target);
+//				
+//				let url = 'https://knowlita.us6.list-manage.com/subscribe/post-json?u=11dc9e1acab61ce95a8f5abd3&id=9ba4591bff&EMAIL='
+//			
+//				let form = event.target;
+//
+//				let email = form.children[0].children[0].children[0].value;
+//				
+//				function c(data){
+//					console.log(data)
+//				}
+//
+//				var script = document.createElement('script');
+//				script.src = url + email
+//
+//
+//				mailChimpRequest( url, email + "&callback=c");
+//				
+//				
+//			}
+//			
+//		});
+		
+	</script>
+</section>
+
+
+
+
+
+

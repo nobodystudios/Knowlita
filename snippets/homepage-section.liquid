@@ -12,6 +12,22 @@ Need to pass :
 		color: #ffffff;
 		max-width: 350px;
 	}
+	
+	div.button.main-content-button{
+		background-color: #ffffff;
+		border: 1px solid #ffffff;
+		color: #000000 !important;
+	}
+	
+	div.button.main-content-button:hover{
+		background-color: transparent;
+		color: #ffffff !important;
+	}
+	
+	a.product.promo.group.scrolled {
+    transition: background-color .20s ease-out;
+	}
+	
 	@media (max-width: 788px) {
 		.collection-wrapper .product .content{
 			display: none;
@@ -34,7 +50,8 @@ Need to pass :
 	<div class="collection-wrapper group">
 		{% assign collec_query = collections[collection].metafields.c_f.collection_mobile_image | split: '?' %}
 		{% assign collec_array = collec_query.first | split: '/' %}
-
+		
+<!--HERO SECTION-->
 		{% if collections[collection].metafields.c_f.media_video_mp4 != blank or collections[collection].image or settings[collection_image_checkbox] %}
 			<div class="product feature fullscreen">
 				{% if collections[collection].metafields.c_f.media_video_mp4 != blank %}
@@ -59,7 +76,7 @@ Need to pass :
 						{% endif %}
 					</div>
 					{% if settings[main_button] != blank %}
-					<div class="button" onclick="window.location='{{ collections[collection].url }}'" style="display:block;max-width: 130px;background-color: #ffffff; color: black; font-size: 18px; letter-spacing: 2.2px; text-align: center; margin-top:14px;">
+					<div class="button main-content-button" onclick="window.location='{{ collections[collection].url }}'" style="display:block;max-width: 130px; font-size: 18px; letter-spacing: 2.2px; text-align: center; margin-top:14px;">
 						{{settings[main_button]}}
 					</div>
 					{% endif %}
@@ -69,6 +86,7 @@ Need to pass :
 				</div>
 			</div>
 		{% endif %}
+<!--END HERO SECTION-->
 
 		{% assign promo_index = collections[collection].metafields.c_f.promo_position | times: 1 %}
 		{% assign product_limits = settings[product_limit] %}
@@ -78,9 +96,10 @@ Need to pass :
 		{% for i in (0..num_product) %}
 			{% assign product = collections[collection].products[i] %}
 
+<!--PROMO CARD-->
 			{% if forloop.index == promo_index %}
 				{% assign promo_link = collections[collection].metafields.c_f.promo_link %}
-				<a class="product promo group" style="background-color:#{{ collections[collection].metafields.c_f.promo_color_background }} !important;" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
+				<a class="product promo group" style="background-color:#{{ collections[collection].metafields.c_f.promo_color_background }};" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
 					{% if promo_link contains 'http' %}<div class="external_icon"></div>{% endif %}
 					{% if collections[collection].metafields.c_f.promo_image != blank and collections[collection].metafields.c_f.promo_media_video_mp4 == blank %}
 						{% assign split_query = collections[collection].metafields.c_f.promo_image | split: '?' %}
@@ -103,12 +122,11 @@ Need to pass :
 						</video>
 					{% endif %}
 					<div class="content {% if collections[collection].metafields.c_f.promo_description_vertical == blank %}centered{% endif %}">
-						{% if collection.metafields.c_f.promo_button != blank %}
-							<div class="button" style="padding: 16px 10px 16px;letter-spacing: 3px;">{{collection.metafields.c_f.promo_button}}</div></br>
-							<h3 style="font-size: 24px;font-weight: bold;letter-spacing: 3px;padding-top: 9px;">{{collection.metafields.c_f.promo_button_text}}</h3>
+						{% if collections[collection].metafields.c_f.promo_button != blank %}
+							<div class="button collection-button" style="padding: 16px 10px 16px;letter-spacing: 3px;">{{collections[collection].metafields.c_f.promo_button}}</div></br>
+							<h3 style="font-size: 24px;font-weight: bold;letter-spacing: 3px;padding-top: 9px;">{{collections[collection].metafields.c_f.promo_button_text}}</h3>
 						{% else %}
 							<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description | newline_to_br }}</h2>
-							<div class="outer">
 								<div class="middle">
 									<p class="vertical" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description_vertical }}</p>
 								</div>
@@ -117,6 +135,7 @@ Need to pass :
 					</div>
 				</a>
 			{% endif %}
+<!--END PROMO CARD-->
 
 				{% assign loop_index = forloop.index | plus: 0 %}
 				{% assign my_limit = settings[product_limit] | plus : 0 %}

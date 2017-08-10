@@ -46,7 +46,7 @@ Need to pass :
 
 
 {% if settings[checkbox] %}
-
+<div class="collection-grid group>">
 	<div class="collection-wrapper group">
 		{% assign collec_query = collections[collection].metafields.c_f.collection_mobile_image | split: '?' %}
 		{% assign collec_array = collec_query.first | split: '/' %}
@@ -155,4 +155,5 @@ Need to pass :
 		{% endfor %}
 
 	</div>
+</div>
 {%  endif %}

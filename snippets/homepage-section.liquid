@@ -127,9 +127,8 @@ Need to pass :
 							<h3 style="font-size: 24px;font-weight: bold;letter-spacing: 3px;padding-top: 9px;">{{collections[collection].metafields.c_f.promo_button_text}}</h3>
 						{% else %}
 							<h2 class="{% if promo_link != blank %}underline{% endif %}" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description | newline_to_br }}</h2>
-								<div class="middle">
-									<p class="vertical" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description_vertical }}</p>
-								</div>
+							<div class="middle">
+								<p class="vertical" style="color:#{{ collections[collection].metafields.c_f.promo_color_text }};">{{ collections[collection].metafields.c_f.promo_description_vertical }}</p>
 							</div>
 						{% endif %}
 					</div>

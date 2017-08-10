@@ -28,11 +28,33 @@ Need to pass :
     transition: background-color .20s ease-out;
 	}
 	
+	div.mobile-title{
+    width: 100%;
+    height: 142px;
+    justify-content: center;
+		align-items: center;
+		display: none;
+	}
+	
+	div.mobile-title h1{
+		margin: 0 !important;
+	}
+	
 	@media (max-width: 788px) {
 		.collection-wrapper .product .content{
 			display: none;
 		}
+
 	}
+	
+	@media (max-width: 530px) {
+		div.mobile-title{
+			display: flex;
+		}
+
+	}
+	
+	
 </style>
 {% assign checkbox = "homepage_section" | append: id %}
 {% assign thecollection = "homepage_collection" | append: id %}
@@ -85,6 +107,12 @@ Need to pass :
 					<div class="line"></div>
 				</div>
 			</div>
+		
+<!--	NEW MOBILE HEADLINE 8/10
+			<div class="mobile-title">
+					<h1>{{collections[collection].title}}</h1>
+			</div>
+-->
 		{% endif %}
 <!--END HERO SECTION-->
 
@@ -92,11 +120,10 @@ Need to pass :
 		{% assign product_limits = settings[product_limit] %}
 		{% assign num_product = collections[collection].all_products_count | plus: 1 %}
 
-
+<!--PROMO CARD-->
 		{% for i in (0..num_product) %}
 			{% assign product = collections[collection].products[i] %}
 
-<!--PROMO CARD-->
 			{% if forloop.index == promo_index %}
 				{% assign promo_link = collections[collection].metafields.c_f.promo_link %}
 				<a class="product promo group" style="background-color:#{{ collections[collection].metafields.c_f.promo_color_background }};" {% if promo_link != blank %}href="{{ promo_link }}"{% endif %} {% if promo_link contains 'http' %}target="_blank"{% endif %}>
@@ -134,7 +161,6 @@ Need to pass :
 					</div>
 				</a>
 			{% endif %}
-<!--END PROMO CARD-->
 
 				{% assign loop_index = forloop.index | plus: 0 %}
 				{% assign my_limit = settings[product_limit] | plus : 0 %}
@@ -152,6 +178,7 @@ Need to pass :
 					</div>
 				{% endif %}
 		{% endfor %}
+<!--END PROMO CARD-->
 
 	</div>
 </div>

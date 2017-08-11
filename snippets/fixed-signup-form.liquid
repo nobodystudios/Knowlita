@@ -111,13 +111,17 @@
 	.fixed-signup-form p{
 		margin: 0;
 		font-size: 18px;
-		letter-spacing: 1.8px;
+		letter-spacing: 2.2px;
 		font-weight: bold;
 	}
 	
-	.button-email{
-		min-width: 0 !important;
-		padding: 0 0 0 10% !important;
+	input#mc-embedded-subscribe.button-email{
+		padding: 0 0 0 10%;
+		margin: 0;
+		background-image: url("{{ "newArrow.png" | asset_url }}");
+		background-repeat: no-repeat;
+		background-position: right;
+		background-size: 12px 8px;
 	}
 	
 	.mc-input{
@@ -125,6 +129,7 @@
 		align-items: center;
 		border-bottom: 1px solid white;
 		justify-content: space-between;
+		margin-bottom: 12px;
 	}
 	
 	.mc-input input{
@@ -135,6 +140,8 @@
 		background-color: #454545;
 		color: white;
 		padding: 0;
+		letter-spacing: normal;
+		margin: 12px 0 8px 0;
 	}	
 	
 	.mc-input input::-webkit-input-placeholder{
@@ -154,7 +161,7 @@
 		background-color: #454545;
 	}
 	
-	.fixed-signup-form img{
+	.lil-lebron{
 		position: relative;
 		bottom: 30px;
 	}
@@ -180,8 +187,13 @@
 	}
 	
 	@media(max-width: 1150px){
+		.mc-input{
+			margin-bottom: 0;
+		}
+		
 		.fixed-signup-form{
-			padding: 0 15px;
+			padding: 0 30px;
+			height: 112px;
 		}
 		
 		.fixed-signup-form p{
@@ -196,7 +208,7 @@
 			bottom: -5px;
 		}
 		
-		.fixed-signup-form img{
+		.lil-lebron{
 			display: none;
 		}
 		
@@ -256,7 +268,7 @@
 
 				<div class="mc-input">
 					<input type="email" value="" name="EMAIL" class="required email" placeholder="Enter your email for 20% Off" id="mce-EMAIL" />
-					<input type="submit" value="→" name="subscribe" id="mc-embedded-subscribe" class="button-email"></input>
+					<input type="submit" value="" name="subscribe" id="mc-embedded-subscribe" class="button-email"></input>
 				</div>
 				<div id="mce-responses" class="clear">
 					<div class="response" id="mce-error-response" style="display:none">please enter a valid email address</div>
@@ -269,7 +281,7 @@
 			</div>
 		</form>
 	</div>
-	{{ "lebron-sm.png" | asset_url | img_tag }}
+	{{ "lebron-sm.png" | asset_url | img_tag: 'Lebron', 'lil-lebron' }}
 	<p id="close-subscribe">x</p>
 	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
 	<script type='text/javascript'>

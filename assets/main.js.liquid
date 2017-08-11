@@ -496,7 +496,6 @@ $(function(){
         let promo = centered[i].parentElement;
         
         promo.addEventListener('mouseenter', function(){
-            promo.style.backgroundColor = "black";
             promoBtn.forEach(function(e){
                 e.style.backgroundColor = 'white';
                 e.style.color = 'black';
@@ -507,7 +506,6 @@ $(function(){
         })
         
         promo.addEventListener('mouseleave', function(){
-            promo.style.backgroundColor = "#e7e7e7";
             promoBtn.forEach(function(e){
                 e.style.backgroundColor = 'black';
                 e.style.color = 'white';
@@ -518,7 +516,7 @@ $(function(){
         })
         
     }
-     
+         
      
      /// Collection slider
      jQuery.fn.reverse = [].reverse; //Genius deserves credit: http://stackoverflow.com/questions/1394020/jquery-each-backwards

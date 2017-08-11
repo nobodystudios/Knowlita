@@ -483,12 +483,12 @@ $(function(){
         //Add close button
         $('<a href="#" class="close-detail">X</a>').data('block', $(this)).appendTo($(this).find('.product-detail'));
     });
-		 
-		 
-		 
-    //COLLECTION PROMO OPTION STYLING......
+     
+     
+     
+    //COLLECTION PROMO OPTION STYLING...
     var centered = Array.from(document.querySelectorAll('.content.centered'));
-    var promoBtn = Array.from(document.querySelectorAll('.centered .button'));
+    var promoBtn = Array.from(document.querySelectorAll('.centered .collection-button'));
     var promoTxt = Array.from(document.querySelectorAll('.centered h3'));    
      
     for(let i = 0; i < centered.length; i++){
@@ -497,19 +497,28 @@ $(function(){
         
         promo.addEventListener('mouseenter', function(){
             promo.style.backgroundColor = "black";
-            promoBtn[i].style.backgroundColor = 'white';
-            promoBtn[i].style.color = 'black';
-            promoTxt[i].style.color = 'white';
+            promoBtn.forEach(function(e){
+                e.style.backgroundColor = 'white';
+                e.style.color = 'black';
+            });
+            promoTxt.forEach(function(e) {
+                e.style.color = 'white';
+            });            
         })
         
         promo.addEventListener('mouseleave', function(){
             promo.style.backgroundColor = "#e7e7e7";
-            promoBtn[i].style.backgroundColor = 'black';
-            promoBtn[i].style.color = 'white';
-            promoTxt[i].style.color = 'black';
+            promoBtn.forEach(function(e){
+                e.style.backgroundColor = 'black';
+                e.style.color = 'white';
+            });
+            promoTxt.forEach(function(e) {
+                e.style.color = 'black';
+            });
         })
+        
     }
-		 
+     
      
      /// Collection slider
      jQuery.fn.reverse = [].reverse; //Genius deserves credit: http://stackoverflow.com/questions/1394020/jquery-each-backwards

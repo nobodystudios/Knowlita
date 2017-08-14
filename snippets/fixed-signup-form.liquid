@@ -41,7 +41,7 @@
 		position: absolute;
 	}
 	
-	#signup-success .success-animation .success-icon{
+	#signup-success .success-animation .success-icon:nth-child(1n+1){
 		background-image: url('{{ 'fire.png' | asset_url }}');
 		background-size: cover;
 		width: 100px;
@@ -55,19 +55,19 @@
 		transition-delay: 200ms;
 	}
 	
-	#signup-success.onFire .success-animation .success-icon:nth-child(1){
+	#signup-success .success-animation .success-icon:nth-child(1){
 		transition-delay: 200ms;
 	}
 	
-	#signup-success.onFire .success-animation .success-icon:nth-child(2){
+	#signup-success .success-animation .success-icon:nth-child(2){
 		transition-delay: 400ms;
 	}
 	
-	#signup-success.onFire .success-animation .success-icon:nth-child(3){
+	#signup-success .success-animation .success-icon:nth-child(3){
 		transition-delay: 600ms;
 	}
 	
-	#signup-success.onFire .success-animation .success-icon.onFire{
+	#signup-success .success-animation .success-icon.onFire{
 		opacity: 1;
 	}
 	
@@ -126,9 +126,7 @@
 	
 	.mc-input{
 		display: flex;
-		align-items: center;
 		border-bottom: 1px solid white;
-		justify-content: space-between;
 		margin-bottom: 12px;
 	}
 	
@@ -247,9 +245,13 @@
 			display: none;
 		}
 		
-		#signup-success .success-animation .success-icon{
+		#signup-success .success-animation .success-icon:nth-child(1n+1){
 			margin: 0;
 			position: relative;
+		}
+		
+		input#mc-embedded-subscribe.button-email{
+			min-width: 50px;
 		}
 		
 	}	
@@ -422,10 +424,18 @@
 				contentType: "application/json; charset=utf-8",
 				error: function(err) { alert("Could not connect to the registration server. Please try again later."); },
 				success: function(data) {
+					
+					var error = document.querySelector('#mce-responses-fixed #mce-error-response');
+					
 					if (data.result != "success") {
-						var error = document.querySelector('#mce-responses-fixed #mce-error-response');
 						error.style.display = "block";
-						error.innerHTML = data.msg;
+						if(data.msg.includes('already subscribed')){
+							error.innerHTML = email + " is already subscribed."
+						}else if(data.msg.includes('too many')){
+							error.innerHTML = email + " had too many attempts."
+						}else{
+							error.innerHTML = data.msg;
+						}
 						console.log(data.msg);
 					} else {
 						error.style.display = "none";

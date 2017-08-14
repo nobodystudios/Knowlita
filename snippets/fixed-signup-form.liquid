@@ -270,7 +270,7 @@
 					<input type="email" value="" name="EMAIL" class="required email" placeholder="Enter your email for 20% Off" id="mce-EMAIL" />
 					<input type="submit" value="" name="subscribe" id="mc-embedded-subscribe" class="button-email"></input>
 				</div>
-				<div id="mce-responses" class="clear">
+				<div id="mce-responses-fixed" class="clear">
 					<div class="response" id="mce-error-response" style="display:none">please enter a valid email address</div>
 					<div class="response" id="mce-success-response" style="display:none"></div>
 				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
@@ -391,8 +391,6 @@
 		const arrow = $("#mc-embedded-subscribe");
 		const $form = $('#mc-embedded-subscribe-form');
 		
-		
-		
 		$("body").on("submit", "#mc-embedded-subscribe-form", function(event){
 			
 			event.preventDefault();
@@ -410,69 +408,17 @@
 				error: function(err) { alert("Could not connect to the registration server. Please try again later."); },
 				success: function(data) {
 					if (data.result != "success") {
-						console.log(data.msg)
+						var error = document.querySelector('#mce-responses-fixed #mce-error-response');
+						error.style.display = "block";
+						error.innerHTML = data.msg;
+						console.log(data.msg);
 					} else {
+						error.style.display = "none";
 						submitted();
 					}
 				}
 			});
 		});
-		
-//		let xhr; 
-//		
-//		function mailChimpRequest(url, email) {
-//			
-//			xhr = new XMLHttpRequest(); 
-//
-//			if(!xhr) {
-//				console.log('nothing to see here...');
-//			}
-//
-//			xhr.onreadystatechange = completed;
-//			xhr.open('GET', url + email);
-//			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
-//			xhr.send();
-//		
-//		}
-//		
-//		function completed() {
-//			if(xhr.readyState === XMLHttpRequest.DONE) {
-//				if(xhr.status === 200) {
-//					submitted();
-//				} else {
-//					console.log('MERP... try again');
-//				}
-//			}
-//		}
-//		
-//				
-//		document.body.addEventListener('submit', function(event) {
-//			event.preventDefault();
-//			
-//			if(event.target && event.target.matches('form.validate')){
-//				
-//				console.log(event.target);
-//				
-//				let url = 'https://knowlita.us6.list-manage.com/subscribe/post-json?u=11dc9e1acab61ce95a8f5abd3&id=9ba4591bff&EMAIL='
-//			
-//				let form = event.target;
-//
-//				let email = form.children[0].children[0].children[0].value;
-//				
-//				function c(data){
-//					console.log(data)
-//				}
-//
-//				var script = document.createElement('script');
-//				script.src = url + email
-//
-//
-//				mailChimpRequest( url, email + "&callback=c");
-//				
-//				
-//			}
-//			
-//		});
 		
 	</script>
 </section>

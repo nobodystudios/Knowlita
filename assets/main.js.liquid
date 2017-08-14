@@ -489,13 +489,24 @@ $(function(){
     //COLLECTION PROMO OPTION STYLING...
     var centered = Array.from(document.querySelectorAll('.content.centered'));
     var promoBtn = Array.from(document.querySelectorAll('.centered .collection-button'));
-    var promoTxt = Array.from(document.querySelectorAll('.centered h3'));    
+    var promoTxt = Array.from(document.querySelectorAll('.centered h3'));
+     
+    //function to get hex decimal
+    function rgb2hex(rgb) {
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
      
     for(let i = 0; i < centered.length; i++){
         
         let promo = centered[i].parentElement;
+        let bg = $(promo).css('backgroundColor');
         
         promo.addEventListener('mouseenter', function(){
+            promo.style.backgroundColor = "black";
             promoBtn.forEach(function(e){
                 e.style.backgroundColor = 'white';
                 e.style.color = 'black';
@@ -506,6 +517,7 @@ $(function(){
         })
         
         promo.addEventListener('mouseleave', function(){
+            promo.style.backgroundColor = rgb2hex(bg);
             promoBtn.forEach(function(e){
                 e.style.backgroundColor = 'black';
                 e.style.color = 'white';

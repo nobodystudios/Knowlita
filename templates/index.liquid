@@ -625,8 +625,8 @@
       // Modify Price
       var $price = $(".modify-price")[0];
       var $btnVal = $(".sca-qv-cartbtn").val();
-
-      $(".sca-qv-cartbtn").val(removeDecimal($price.textContent) + " - " + $btnVal);
+        
+      $(".sca-qv-cartbtn").val(removeDecimal($price.textContent) + " - ADD TO BAG");
       $(".quick-view-container").addClass("run-animation");
       $(".main-logo-overlay").addClass("show");
       $("body").addClass("fix");

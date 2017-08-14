@@ -116,7 +116,7 @@
 	}
 	
 	input#mc-embedded-subscribe.button-email{
-		padding: 0 0 0 10%;
+		padding: 0;
 		margin: 0;
 		background-image: url("{{ "newArrow.png" | asset_url }}");
 		background-repeat: no-repeat;
@@ -184,6 +184,7 @@
 		font-family: helvetica;
 		font-size: 12px;
 		color: #c8c8c8;
+		position: absolute;
 	}
 	
 	@media(max-width: 1350px){
@@ -306,9 +307,9 @@
 		
 		expire.setFullYear(now.getFullYear());
 		expire.setMonth(now.getMonth());
-		expire.setDate(now.getDate()+1);
+		expire.setDate(now.getDate()+7);
 		expire.setHours(0);
-		expire.setMinutes(0);
+		expire.setMinutes(0); 
 		expire.setSeconds(0);
 		
 		var expires = "expires="+expire.toString();
@@ -320,7 +321,12 @@
 		var visibleForm = function() {
 			
 			if(window.pageYOffset >= 500 && !formContainer.classList.contains('visible') ){
+				
+				//CREATE COOKIE FOR ONE TIME SNIPPET
+				document.cookie = 'visited=true;' + expires + '; path=/';
+				
 				formContainer.classList.add('visible');
+				
 			};
 			
 		}

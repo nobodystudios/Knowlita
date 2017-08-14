@@ -243,11 +243,10 @@
 			position: relative;
 		}
 		
-	}
-	
-	
-	
+	}	
 </style>
+
+
 <div id="signup-success">
 	<video width="100%" height="100%" id="success-video" muted="muted" >
 		<source type="video/mp4" src="{{ 'lebron.mp4' | asset_url }}" />
@@ -283,7 +282,9 @@
 	</div>
 	{{ "lebron-sm.png" | asset_url | img_tag: 'Lebron', 'lil-lebron' }}
 	<p id="close-subscribe">x</p>
+
 	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+
 	<script type='text/javascript'>
 		(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='COMPANY';ftypes[3]='text';fnames[4]='ADDRESS';ftypes[4]='address';fnames[5]='MMERGE5';ftypes[5]='text';}(jQuery));var $mcj = jQuery.noConflict(true);
 	</script>
